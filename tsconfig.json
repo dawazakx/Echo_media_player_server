@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "2022",
+    "outDir": "dist",
+    "strict": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "include": ["src/**/*.ts", "spec/**/*.ts", ".eslintrc.js"]
+  }
+}
