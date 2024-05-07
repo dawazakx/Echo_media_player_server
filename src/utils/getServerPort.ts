@@ -7,7 +7,7 @@ export default () => {
     case "production":
       return configs.PORT;
     case "development":
-      return 9010;
+      return 9090;
     case "test":
       return 3001;
     default:
