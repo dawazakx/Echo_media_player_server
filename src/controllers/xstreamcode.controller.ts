@@ -8,13 +8,9 @@ export const connectToXstream = async (req: Request, res: Response) => {
     try {
       const isConnected = await connectToDevice(req.body);
 
-      if (isConnected) {
-        res.status(200).json({ message: "Connection established successfully" });
-      } else {
-        res.status(500).json({ error: "Failed to connect to Xtream Codes server" });
-      }
+      res.status(200).json({ message: "Connection established successfully", isConnected });
     } catch (error: any) {
-      res.status(error.status).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   });
 };
