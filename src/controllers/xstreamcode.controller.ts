@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { connectToDevice } from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
-import { connectX } from "../validations/user.validation";
+import { connectX } from "../validations/playlist.validation";
 
 export const connectToXstream = async (req: Request, res: Response) => {
   await validationMiddleware(connectX)(req, res, async () => {
@@ -10,7 +10,7 @@ export const connectToXstream = async (req: Request, res: Response) => {
 
       res.status(200).json({ message: "Connection established successfully", isConnected });
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(error.status).json({ message: error.message || "Internal Server Error" });
     }
   });
 };

@@ -1,18 +1,9 @@
 import Joi from "joi";
 
 const connectX = Joi.object({
-  device: Joi.object({
-    id: Joi.string().required().messages({
-      "any.required": "Device ID is required",
-    }),
-    type: Joi.string().required().messages({
-      "any.required": "Device type is required",
-    }),
-  })
-    .required()
-    .messages({
-      "any.required": "Device object is required",
-    }),
+  device_id: Joi.string().required().messages({
+    "any.required": "Nickname is required",
+  }),
   nickname: Joi.string().required().messages({
     "any.required": "Nickname is required",
   }),

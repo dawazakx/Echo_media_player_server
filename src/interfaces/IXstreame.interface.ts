@@ -1,12 +1,10 @@
-interface Device {
-  id: string;
-  type: string;
-}
+import { Document } from "mongoose";
 
-export default interface IXstreame {
+export default interface IXstreame extends Document {
   nickname: string;
   username: string;
   password: string;
-  device: Device;
+  device_id: string;
   url: string;
+  xtreamUserInfo: object;
 }
