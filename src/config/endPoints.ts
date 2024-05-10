@@ -1,5 +1,6 @@
 const END_POINTS = {
   XSTREAM_CONNECT: "/connect-xstream",
+  CREATE_DEVICE: "/generate-device-id",
 };
 
 const PREFIXES = {
