@@ -15,6 +15,6 @@ userRoute.post(END_POINTS.XSTREAM_CONNECT, connectToXstream);
 userRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
 
 // Get Live Stream Categories
-userRoute.get(END_POINTS.LIVE_STREAM_CAT, verifyUser, getLiveStreamCat);
+userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
 
 export default userRoute;

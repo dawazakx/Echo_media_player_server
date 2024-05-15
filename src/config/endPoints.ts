@@ -1,7 +1,7 @@
 const END_POINTS = {
   XSTREAM_CONNECT: "/connect-xstream",
   CREATE_DEVICE: "/generate-device-id",
-  LIVE_STREAM_CAT: "/live-category",
+  LIVE_STREAM_CATEGORY: "/live-stream-category",
 };
 
 const PREFIXES = {
