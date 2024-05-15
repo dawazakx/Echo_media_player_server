@@ -18,6 +18,6 @@ userRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
 userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
 
 // Get VOD Categories
-userRoute.get(END_POINTS.VOD_CATEGORY, verifyUser, getVODStreamCategories);
+userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories);
 
 export default userRoute;
