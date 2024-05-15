@@ -8,3 +8,8 @@ export default interface IXstreame extends Document {
   url: string;
   xtreamUserInfo: object;
 }
+
+export interface XtreamUserInfo {
+  username: string;
+  password: string;
+}
