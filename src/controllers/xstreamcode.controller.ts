@@ -31,6 +31,17 @@ export const getLiveStreamCat = async (req: Request, res: Response) => {
   }
 };
 
+export const getVODStreamCategories = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers.device_id as string;
+    const vodCategories = await getVodCategories(device_id);
+    res.status(200).json({ vodCategories });
+  } catch (error: any) {
+    console.error("Error fetching VOD stream categories:", error.message);
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
 export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
   try {
     const device_id = req.headers.device_id as string;
@@ -40,16 +51,6 @@ export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
     res.status(200).json({ streams });
   } catch (error: any) {
     console.error("Error fetching live streams:", error.message);
-    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
-  }
-};
-export const getVODStreamCategories = async (req: Request, res: Response) => {
-  try {
-    const device_id = req.headers.device_id as string;
-    const vodCategories = await getVodCategories(device_id);
-    res.status(200).json({ vodCategories });
-  } catch (error: any) {
-    console.error("Error fetching VOD stream categories:", error.message);
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }
 };
