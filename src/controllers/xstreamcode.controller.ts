@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { connectToDevice, getLiveStreamCategories } from "../services/xstreamecode.service";
+import { connectToDevice, getLiveStreamCategories, getLiveStreams } from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
 import { connectX } from "../validations/playlist.validation";
 
@@ -22,6 +22,19 @@ export const getLiveStreamCat = async (req: Request, res: Response) => {
     res.status(200).json({ categories });
   } catch (error: any) {
     console.error("Error fetching live stream categories:", error.message);
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers.device_id as string;
+    const { category_id } = req.params;
+
+    const streams = await getLiveStreams(device_id, category_id);
+    res.status(200).json({ streams });
+  } catch (error: any) {
+    console.error("Error fetching live streams:", error.message);
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }
 };
