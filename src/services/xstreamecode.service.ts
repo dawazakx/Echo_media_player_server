@@ -158,3 +158,43 @@ export const getLiveStreams = async (device_id: string, category_id: string): Pr
     };
   }
 };
+
+export const getVODStreams = async (device_id: string, category_id: string): Promise<Stream[]> => {
+  try {
+    const playlist = await PlaylistModel.findOne({ device_id });
+
+    if (!playlist) {
+      throw {
+        status: 404,
+        message: "No playlist found",
+      };
+    }
+
+    const { xtreamUserInfo, url } = playlist;
+
+    const userInfo = xtreamUserInfo as XtreamUserInfo;
+
+    if (!userInfo || !userInfo.username || !userInfo.password) {
+      throw {
+        status: 400,
+        message: "Invalid Xtream user info",
+      };
+    }
+
+    const { username, password } = userInfo;
+
+    const playerConfig: PlayerApiConfig = { baseUrl: url, auth: { username, password } };
+    const playerAPI = new PlayerAPI(playerConfig);
+
+    // Fetch live streams by category
+    const streams = await playerAPI.getVODStreams(category_id);
+
+    return streams;
+  } catch (error: any) {
+    console.error("Error fetching live streams:", error.message);
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};

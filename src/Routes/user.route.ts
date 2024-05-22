@@ -5,6 +5,7 @@ import {
   connectToXstream,
   getLiveStreamCat,
   getVODStreamCategories,
+  getVODStreamsByCategory,
   getLiveStreamsByCategory,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
@@ -27,5 +28,8 @@ userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories
 
 // Get Live Streams By Category
 userRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
+
+// Get VOD Streams By Category
+userRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
 
 export default userRoute;
