@@ -4,6 +4,7 @@ const END_POINTS = {
   LIVE_STREAM_CATEGORY: "/live-stream-category",
   VOD_STREAM_CATEGORY: "/vod-stream-category",
   LIVE_STREAMS: "/live-stream",
+  VOD_STREAMS: "/vod-stream",
 };
 
 const PREFIXES = {
