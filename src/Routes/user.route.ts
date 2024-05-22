@@ -6,6 +6,7 @@ import {
   getLiveStreamCat,
   getVODStreamCategories,
   getVODStreamsByCategory,
+  getLiveStreamsByCategory,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
@@ -24,6 +25,9 @@ userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
 
 // Get VOD Categories
 userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories);
+
+// Get Live Streams By Category
+userRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
 
 // Get VOD Streams By Category
 userRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
