@@ -1,7 +1,12 @@
 import { Router } from "express";
 
 import { END_POINTS } from "../config/endPoints";
-import { connectToXstream, getLiveStreamCat, getVODStreamCategories } from "../controllers/xstreamcode.controller";
+import {
+  connectToXstream,
+  getLiveStreamCat,
+  getStreamUrl,
+  getVODStreamCategories,
+} from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
 
@@ -19,5 +24,8 @@ userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
 
 // Get VOD Categories
 userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories);
+
+// Get Stream url
+userRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
 
 export default userRoute;

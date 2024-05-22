@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { connectToDevice, getLiveStreamCategories, getVodCategories } from "../services/xstreamecode.service";
+import {
+  connectToDevice,
+  getLiveStreamCategories,
+  getStreamURL,
+  getVodCategories,
+} from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
 import { connectX } from "../validations/playlist.validation";
 
@@ -33,6 +38,23 @@ export const getVODStreamCategories = async (req: Request, res: Response) => {
     res.status(200).json({ vodCategories });
   } catch (error: any) {
     console.error("Error fetching VOD stream categories:", error.message);
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const getStreamUrl = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers.device_id as string;
+    const { stream_id, stream_extension } = req.query;
+
+    if (!stream_id || !stream_extension) {
+      return res.status(400).json({ message: "Stream ID and extension are required" });
+    }
+
+    const streamURL = await getStreamURL(device_id, Number(stream_id), stream_extension as string);
+    res.status(200).json({ streamURL });
+  } catch (error: any) {
+    console.error("Error fetching stream URL:", error.message);
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }
 };
