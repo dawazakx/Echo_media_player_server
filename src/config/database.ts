@@ -3,12 +3,12 @@ import configs from "../config/config";
 
 function getDatabaseURL(environment: any) {
   switch (environment) {
-    // case "production":
-    //   return configs.DB_PRODUCTION_URL;
+    case "production":
+      return configs.DB_PRODUCTION_URL;
     case "development":
       return configs.DB_DEV_URL;
-    //   case "test":
-    //     return configs.DB_TEST_URL;
+      case "test":
+        return configs.DB_TEST_URL;
     default:
       return configs.DB_DEV_URL;
   }
