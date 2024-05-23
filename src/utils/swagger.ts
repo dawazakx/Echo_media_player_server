@@ -25,7 +25,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
   },
-  apis: ["./src/Routes/userRoute.ts", "./src/schema/*.ts"], // pass in the paths where the openapi are defined
+  apis: ["./src/Routes/*.ts", "./src/schema/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
