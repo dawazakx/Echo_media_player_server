@@ -28,14 +28,19 @@ const userRoute = Router();
  *             properties:
  *               device_id:
  *                 type: string
+ *                 default: 80a5b5e2-9360-400f-9464-fecd20a21fd7
  *               nickname:
  *                 type: string
+ *                 default: kelz
  *               username:
  *                 type: string
+ *                 default: Dawazak
  *               password:
  *                 type: string
+ *                 default: wcunmgpamy
  *               url:
  *                 type: string
+ *                 default: http://ottkiller.pro
  *     responses:
  *       200:
  *         description: Successfully connected to xstream server
@@ -61,8 +66,10 @@ userRoute.post(END_POINTS.XSTREAM_CONNECT, connectToXstream);
  *             properties:
  *               type:
  *                 type: string
+ *                 default: tv
  *               os:
  *                 type: string
+ *                 default: webOs
  *     responses:
  *       200:
  *         description: Device ID generated successfully
