@@ -1,12 +1,22 @@
 import IXstreame, { XtreamUserInfo } from "../interfaces/IXstreame.interface";
 import { PlayerAPI } from "../lib/xstream-codes/player";
 import { Category, PlayerApiConfig, Stream } from "../lib/xstream-codes/types";
+import DeviceModel from "../models/device.model";
 import PlaylistModel from "../models/playlist.model";
 
 export const connectToDevice = async (xtream: IXstreame) => {
   const { device_id, nickname, username, password } = xtream;
 
   try {
+    const existingDevice = await DeviceModel.findOne({ deviceId: device_id });
+
+    if (!existingDevice) {
+      throw {
+        status: 400,
+        message: "Invalid device ID",
+      };
+    }
+
     const existingUser = await PlaylistModel.findOne({ device_id });
 
     if (existingUser) {
