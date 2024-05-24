@@ -10,7 +10,7 @@ export const verifyUser = async (req: Request | any, res: Response, next: NextFu
 
     if (!device_id) {
       return res
-        .header("Test_header", "test...")
+        .header("Test-header", "test...")
         .status(StatusCodes.UNAUTHORIZED)
         .json({
         message: "Device ID missing in headers",
