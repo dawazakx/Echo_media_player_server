@@ -23,7 +23,7 @@ export const connectToXstream = async (req: Request, res: Response) => {
 
 export const getLiveStreamCat = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers.deviceId as string;
+    const device_id = req.headers["device-id"] as string;
     const categories = await getLiveStreamCategories(device_id);
     res.status(200).json({ categories });
   } catch (error: any) {
@@ -34,7 +34,7 @@ export const getLiveStreamCat = async (req: Request, res: Response) => {
 
 export const getVODStreamCategories = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers.deviceId as string;
+    const device_id = req.headers["device-id"] as string;
     const vodCategories = await getVodCategories(device_id);
     res.status(200).json({ vodCategories });
   } catch (error: any) {
@@ -45,7 +45,7 @@ export const getVODStreamCategories = async (req: Request, res: Response) => {
 
 export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers.deviceId as string;
+    const device_id = req.headers["device-id"] as string;
     const { category_id } = req.query;
 
     const streams = await getLiveStreams(device_id, category_id as string);
@@ -58,7 +58,7 @@ export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
 
 export const getVODStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers.deviceId as string;
+    const device_id = req.headers["device-id"] as string;
     const { category_id } = req.query;
 
     const streams = await getVODStreams(device_id, category_id as string);
