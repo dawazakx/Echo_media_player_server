@@ -4,6 +4,7 @@ import DeviceModel from "../models/device.model";
 
 export const verifyUser = async (req: Request | any, res: Response, next: NextFunction) => {
   try {
+    console.log(req.headers);
     const device_id = req.headers.device_id as string;
     console.log(device_id);
 
