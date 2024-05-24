@@ -4,13 +4,10 @@ import DeviceModel from "../models/device.model";
 
 export const verifyUser = async (req: Request | any, res: Response, next: NextFunction) => {
   try {
-    console.log(req.headers);
     const device_id = req.headers["device-id"] as string;
-    console.log(device_id);
 
     if (!device_id) {
       return res
-        .header("Test-header", "test...")
         .status(StatusCodes.UNAUTHORIZED)
         .json({
         message: "Device ID missing in headers",
