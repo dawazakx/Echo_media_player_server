@@ -1,12 +1,22 @@
 import IXstreame, { XtreamUserInfo } from "../interfaces/IXstreame.interface";
 import { PlayerAPI } from "../lib/xstream-codes/player";
-import { Category, PlayerApiConfig } from "../lib/xstream-codes/types";
+import { Category, PlayerApiConfig, Stream } from "../lib/xstream-codes/types";
+import DeviceModel from "../models/device.model";
 import PlaylistModel from "../models/playlist.model";
 
 export const connectToDevice = async (xtream: IXstreame) => {
   const { device_id, nickname, username, password } = xtream;
 
   try {
+    const existingDevice = await DeviceModel.findOne({ deviceId: device_id });
+
+    if (!existingDevice) {
+      throw {
+        status: 400,
+        message: "Invalid device ID",
+      };
+    }
+
     const existingUser = await PlaylistModel.findOne({ device_id });
 
     if (existingUser) {
@@ -119,7 +129,97 @@ export const getVodCategories = async (device_id: string): Promise<Category[]> =
   }
 };
 
-export const getStreamURL = async (device_id: string, stream_id: number, stream_extension: string): Promise<string> => {
+export const getLiveStreams = async (
+  device_id: string,
+  category_id: string
+): Promise<Stream[]> => {
+  try {
+    const playlist = await PlaylistModel.findOne({ device_id });
+
+    if (!playlist) {
+      throw {
+        status: 404,
+        message: "No playlist found",
+      };
+    }
+
+    const { xtreamUserInfo, url } = playlist;
+
+    const userInfo = xtreamUserInfo as XtreamUserInfo;
+
+    if (!userInfo || !userInfo.username || !userInfo.password) {
+      throw {
+        status: 400,
+        message: "Invalid Xtream user info",
+      };
+    }
+
+    const { username, password } = userInfo;
+
+    const playerConfig: PlayerApiConfig = { baseUrl: url, auth: { username, password } };
+    const playerAPI = new PlayerAPI(playerConfig);
+
+    // Fetch live streams by category
+    const streams = await playerAPI.getLiveStreams(category_id);
+
+    return streams;
+  } catch (error: any) {
+    console.error("Error fetching live streams:", error.message);
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export const getVODStreams = async (
+  device_id: string,
+  category_id: string
+): Promise<Stream[]> => {
+  try {
+    const playlist = await PlaylistModel.findOne({ device_id });
+
+    if (!playlist) {
+      throw {
+        status: 404,
+        message: "No playlist found",
+      };
+    }
+
+    const { xtreamUserInfo, url } = playlist;
+
+    const userInfo = xtreamUserInfo as XtreamUserInfo;
+
+    if (!userInfo || !userInfo.username || !userInfo.password) {
+      throw {
+        status: 400,
+        message: "Invalid Xtream user info",
+      };
+    }
+
+    const { username, password } = userInfo;
+
+    const playerConfig: PlayerApiConfig = { baseUrl: url, auth: { username, password } };
+    const playerAPI = new PlayerAPI(playerConfig);
+
+    // Fetch live streams by category
+    const streams = await playerAPI.getVODStreams(category_id);
+
+    return streams;
+  } catch (error: any) {
+    console.error("Error fetching live streams:", error.message);
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export const getStreamURL = async (
+  device_id: string,
+  stream_id: number,
+  stream_extension: string
+): Promise<string> => {
   try {
     const playlist = await PlaylistModel.findOne({ device_id });
 

@@ -3,8 +3,9 @@ const END_POINTS = {
   CREATE_DEVICE: "/generate-device-id",
   LIVE_STREAM_CATEGORY: "/live-stream-category",
   VOD_STREAM_CATEGORY: "/vod-stream-category",
-
   STREAM_URL: "/stream-url",
+  LIVE_STREAMS: "/live-stream",
+  VOD_STREAMS: "/vod-stream",
 };
 
 const PREFIXES = {
