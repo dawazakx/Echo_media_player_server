@@ -7,6 +7,7 @@ import {
   getVODStreamCategories,
   getVODStreamsByCategory,
   getLiveStreamsByCategory,
+  getStreamUrl,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
@@ -88,7 +89,7 @@ userRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
@@ -113,7 +114,7 @@ userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
  *     tags: [VOD]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
@@ -132,13 +133,50 @@ userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories
 
 /**
  * @swagger
+ * /api/v1/stream-url:
+ *   get:
+ *     summary: Get Stream Url
+ *     tags: [Stream Url]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: query
+ *         name: stream_id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Stream ID
+ *       - in: query
+ *         name: stream_extension
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Stream Extension
+ *     responses:
+ *       200:
+ *         description: Stream URL retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+userRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
+
+/**
+ * @swagger
  * /api/v1/live-stream:
  *   get:
  *     summary: Get Live Streams By Category
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
@@ -169,7 +207,7 @@ userRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
  *     tags: [VOD]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
