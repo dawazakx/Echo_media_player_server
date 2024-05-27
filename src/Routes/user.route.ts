@@ -136,7 +136,7 @@ userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories
  * /api/v1/stream-url:
  *   get:
  *     summary: Get Stream Url
- *     tags: [VOD]
+ *     tags: [Stream Url]
  *     parameters:
  *       - in: header
  *         name: device-id
@@ -146,11 +146,16 @@ userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories
  *         description: Device ID
  *       - in: query
  *         name: stream_id
- *         name: stream_xstention
  *         schema:
  *           type: string
  *         required: true
  *         description: Stream ID
+ *       - in: query
+ *         name: stream_extension
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Stream Extension
  *     responses:
  *       200:
  *         description: Stream URL retrieved successfully
