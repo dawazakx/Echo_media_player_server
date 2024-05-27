@@ -89,7 +89,7 @@ userRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
@@ -114,7 +114,7 @@ userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
  *     tags: [VOD]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
@@ -171,7 +171,7 @@ userRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
@@ -202,7 +202,7 @@ userRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
  *     tags: [VOD]
  *     parameters:
  *       - in: header
- *         name: device_id
+ *         name: device-id
  *         schema:
  *           type: string
  *         required: true
