@@ -72,7 +72,7 @@ export const getVODStreamsByCategory = async (req: Request, res: Response) => {
 
 export const getStreamUrl = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers.device_id as string;
+    const device_id = req.headers["device-id"] as string;
     const { stream_id, stream_extension } = req.query;
 
     if (!stream_id || !stream_extension) {
