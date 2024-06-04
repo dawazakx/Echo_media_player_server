@@ -9,7 +9,11 @@ export const configs = {
 
   DB_TEST_URL: process.env.DB_TEST_URL || "",
   DB_DEV_URL: process.env.DB_DEV_URL || "",
-    DB_PRODUCTION_URL: process.env.DB_PRODUCTION_URL || "",
+  DB_PRODUCTION_URL: process.env.DB_PRODUCTION_URL || "",
+
+  SECRET_KEY: process.env.SECRET_KEY || "",
+
+  BREVO_API_KEY: process.env.BREVO_API_KEY || "",
 };
 
 export default configs;

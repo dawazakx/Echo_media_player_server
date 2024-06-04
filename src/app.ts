@@ -4,6 +4,7 @@ import helmet from "helmet";
 import { connectDatabase } from "./config/database";
 import { PREFIXES } from "./config/endPoints";
 import userRoute from "./Routes/user.route";
+import UserRoute from "./Routes/user";
 
 // Establish connection to DB
 connectDatabase();
@@ -23,6 +24,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(PREFIXES.API, userRoute);
 
-// app.use(PREFIXES.API + PREFIXES.USER, userRoute);
+app.use(PREFIXES.API + PREFIXES.USER, UserRoute);
 
 export default app;
