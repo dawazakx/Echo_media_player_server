@@ -10,7 +10,7 @@ const generateToken = (userInstance: IUser & { _id: string }): string => {
     email: userInstance.email,
   };
 
-  const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
+  const token = jwt.sign(payload, secretKey, { expiresIn: "7d" });
 
   return token;
 };

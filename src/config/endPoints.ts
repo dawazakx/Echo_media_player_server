@@ -9,6 +9,7 @@ const END_POINTS = {
 
   SIGNUP: "/signup",
   VERIFY_USER: "/verify",
+  LOGIN: "/login",
 };
 
 const PREFIXES = {
