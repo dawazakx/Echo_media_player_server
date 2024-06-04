@@ -15,4 +15,13 @@ const register = Joi.object({
   }),
 });
 
-export { register };
+const userOtp = Joi.object({
+  otp: Joi.string().required().messages({
+    "any.required": "otp is required",
+  }),
+  email: Joi.string().email().required().messages({
+    "any.required": "Email is required",
+  }),
+});
+
+export { register, userOtp };
