@@ -8,11 +8,12 @@ import {
   getVODStreamsByCategory,
   getLiveStreamsByCategory,
   getStreamUrl,
+  getLiveEPG,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
 
-const userRoute = Router();
+const xstreamRoute = Router();
 
 /**
  * @swagger
@@ -50,7 +51,7 @@ const userRoute = Router();
  *       500:
  *         description: Server error
  */
-userRoute.post(END_POINTS.XSTREAM_CONNECT, connectToXstream);
+xstreamRoute.post(END_POINTS.XSTREAM_CONNECT, connectToXstream);
 
 /**
  * @swagger
@@ -79,7 +80,7 @@ userRoute.post(END_POINTS.XSTREAM_CONNECT, connectToXstream);
  *       500:
  *         description: Server error
  */
-userRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
+xstreamRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
 
 /**
  * @swagger
@@ -104,7 +105,7 @@ userRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
  *       500:
  *         description: Server error
  */
-userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
+xstreamRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
 
 /**
  * @swagger
@@ -129,7 +130,7 @@ userRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
  *       500:
  *         description: Server error
  */
-userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories);
+xstreamRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories);
 
 /**
  * @swagger
@@ -166,7 +167,7 @@ userRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories
  *       500:
  *         description: Server error
  */
-userRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
+xstreamRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
 
 /**
  * @swagger
@@ -197,7 +198,7 @@ userRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
  *       500:
  *         description: Server error
  */
-userRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
+xstreamRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
 
 /**
  * @swagger
@@ -228,6 +229,37 @@ userRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
  *       500:
  *         description: Server error
  */
-userRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
+xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
 
-export default userRoute;
+/**
+ * @swagger
+ * /api/v1/live-epg:
+ *   get:
+ *     summary: Get Live EPG Streams
+ *     tags: [EPG]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: query
+ *         name: channelId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Channel ID
+ *     responses:
+ *       200:
+ *         description: Live EPG retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.LIVE_EPG, verifyUser, getLiveEPG);
+
+export default xstreamRoute;
