@@ -6,6 +6,7 @@ const END_POINTS = {
   STREAM_URL: "/stream-url",
   LIVE_STREAMS: "/live-stream",
   VOD_STREAMS: "/vod-stream",
+  LIVE_EPG: "/live-epg",
 };
 
 const PREFIXES = {
