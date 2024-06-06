@@ -2,15 +2,14 @@ const END_POINTS = {
   XSTREAM_CONNECT: "/connect-xstream",
   CREATE_DEVICE: "/generate-device-id",
   LIVE_STREAM_CATEGORY: "/live-stream-category",
-  VOD_STREAM_CATEGORY: "/vod-stream-category",
-  STREAM_URL: "/stream-url",
   LIVE_STREAMS: "/live-stream",
+  LIVE_STREAM_EPG: "/live-stream-epg",
+  VOD_STREAM_CATEGORY: "/vod-stream-category",
   VOD_STREAMS: "/vod-stream",
-
-  SIGNUP: "/signup",
-  LIVE_EPG: "/live-epg",
+  STREAM_URL: "/stream-url",
   SEARCH_LIVE_STREAM: "/search-livetv",
   SEARCH_VOD: "/search-vod",
+  SIGNUP: "/signup",
 };
 
 const PREFIXES = {
