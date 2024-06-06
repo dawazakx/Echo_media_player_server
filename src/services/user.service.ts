@@ -26,8 +26,8 @@ const createUser = async (userData: IUser, res: Response) => {
 
     await user.save();
 
-    // Set OTP in server cookie to expire in one hour
-    res.cookie("otp", otp, { httpOnly: true, maxAge: 3600000, secure: true });
+    // Set OTP in server cookie to expire in one hou
+    res.cookie("signup_otp", otp, { httpOnly: true, maxAge: 3600000 });
     res.cookie("otp.expires", Date.now() + 3600000, { httpOnly: true, secure: true });
 
     // Omit the password field from the returned user data

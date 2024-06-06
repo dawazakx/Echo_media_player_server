@@ -6,6 +6,9 @@ import {
   getStreamURL,
   getLiveStreams,
   getVODStreams,
+  getEPGData,
+  searchLiveData,
+  searchVODData,
 } from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
 import { connectX } from "../validations/playlist.validation";
@@ -87,6 +90,56 @@ export const getStreamUrl = async (req: Request, res: Response) => {
     res.status(200).json({ streamURL });
   } catch (error: any) {
     console.error("Error fetching stream URL:", error.message);
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const getLiveEPG = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers["device-id"] as string;
+    const { channelId } = req.query;
+
+    if (!channelId) {
+      return res.status(400).json({ message: "channelId is required" });
+    }
+
+    const epgData = await getEPGData(device_id, channelId as string);
+    res.status(200).json({ epgData });
+  } catch (error: any) {
+    console.error("Error fetching EPG data:", error.message);
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const searchLiveTV = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers["device-id"] as string;
+    const { name } = req.query;
+
+    if (!name) {
+      return res.status(400).json({ message: "name is required" });
+    }
+
+    const liveTV = await searchLiveData(device_id, name as string);
+    res.status(200).json({ liveTV });
+  } catch (error: any) {
+    console.error("Error fetching live tv:", error);
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const searchVOD = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers["device-id"] as string;
+    const { name } = req.query;
+
+    if (!name) {
+      return res.status(400).json({ message: "name is required" });
+    }
+
+    const vod = await searchVODData(device_id, name as string);
+    res.status(200).json({ vod });
+  } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }
 };
