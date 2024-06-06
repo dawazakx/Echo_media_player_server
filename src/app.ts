@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import { connectDatabase } from "./config/database";
 import { PREFIXES } from "./config/endPoints";
+import UserRoute from "./Routes/user";
 import xstreamRoute from "./Routes/xstream.route";
 
 // Establish connection to DB
@@ -23,6 +24,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(PREFIXES.API, xstreamRoute);
 
-// app.use(PREFIXES.API + PREFIXES.USER, userRoute);
+app.use(PREFIXES.API + PREFIXES.USER, UserRoute);
 
 export default app;
