@@ -9,6 +9,8 @@ const END_POINTS = {
 
   SIGNUP: "/signup",
   VERIFY_USER: "/verify",
+  LIVE_EPG: "/live-epg",
+
 };
 
 const PREFIXES = {
