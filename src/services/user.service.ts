@@ -59,7 +59,7 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
     }
 
     // Retrieve OTP from cookies
-    const cookieOTP = req.cookies.otp;
+    const cookieOTP = req.cookies.signup_otp;
 
     if (!cookieOTP || cookieOTP !== otp) {
       throw {
