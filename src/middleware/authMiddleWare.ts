@@ -8,12 +8,10 @@ export const verifyUser = async (req: Request | any, res: Response, next: NextFu
     console.log(device_id);
 
     if (!device_id) {
-      return res
-        .status(StatusCodes.UNAUTHORIZED)
-        .json({
-          message: "Device ID missing in headers",
-          status: false,
-        });
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        message: "Device ID missing in headers",
+        status: false,
+      });
     }
 
     const device = await DeviceModel.findOne({ deviceId: device_id });
@@ -26,6 +24,27 @@ export const verifyUser = async (req: Request | any, res: Response, next: NextFu
     }
 
     req.device = device;
+
+    next();
+  } catch (err: any) {
+    console.error("Error validating user:", err.message);
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      message: "User validation error",
+      status: false,
+    });
+  }
+};
+
+export const verifyChannel = async (req: Request | any, res: Response, next: NextFunction) => {
+  try {
+    const channelId = req.headers["channel-id"] as string;
+
+    if (!channelId) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        message: "Channel ID missing in headers",
+        status: false,
+      });
+    }
 
     next();
   } catch (err: any) {

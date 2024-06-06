@@ -6,10 +6,12 @@ const END_POINTS = {
   STREAM_URL: "/stream-url",
   LIVE_STREAMS: "/live-stream",
   VOD_STREAMS: "/vod-stream",
-
+  
   SIGNUP: "/signup",
   VERIFY_USER: "/verify",
   LOGIN: "/login",
+  LIVE_EPG: "/live-epg",
+
 };
 
 const PREFIXES = {

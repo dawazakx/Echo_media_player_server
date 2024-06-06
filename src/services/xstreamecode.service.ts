@@ -258,3 +258,43 @@ export const getStreamURL = async (
     };
   }
 };
+
+export const getEPGData = async (device_id: string, channelId: string) => {
+  try {
+    const playlist = await PlaylistModel.findOne({ device_id });
+
+    if (!playlist) {
+      throw {
+        status: 404,
+        message: "No playlist found",
+      };
+    }
+
+    const { xtreamUserInfo, url } = playlist;
+
+    const userInfo = xtreamUserInfo as XtreamUserInfo;
+
+    if (!userInfo || !userInfo.username || !userInfo.password) {
+      throw {
+        status: 400,
+        message: "Invalid Xtream user info",
+      };
+    }
+
+    const { username, password } = userInfo;
+
+    const playerConfig: PlayerApiConfig = { baseUrl: url, auth: { username, password } };
+    const playerAPI = new PlayerAPI(playerConfig);
+
+    // Fetch EPG data
+    const epgData = await playerAPI.getAllEPGLiveStreams(channelId);
+
+    return epgData;
+  } catch (error: any) {
+    console.error("Error fetching EPG data:", error.message);
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
