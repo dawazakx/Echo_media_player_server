@@ -8,6 +8,7 @@ export type Filter = {
   vod_id?: string | number;
   stream_id?: any;
   limit?: any;
+  name?: string;
 };
 
 export interface Category {

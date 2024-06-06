@@ -1,9 +1,4 @@
-import { 
-  type Stream,
-  type Category,
-  type PlayerApiConfig,
-  type Filter,
-} from "./types";
+import { type Stream, type Category, type PlayerApiConfig, type Filter } from "./types";
 
 /**
  * @version 2.x
@@ -59,9 +54,7 @@ export class PlayerAPI {
     const query = new URLSearchParams(queryObj as any);
 
     return Promise.resolve()
-      .then(() =>
-        fetch(`${this.config.baseUrl}/player_api.php?${query.toString()}`),
-      )
+      .then(() => fetch(`${this.config.baseUrl}/player_api.php?${query.toString()}`))
       .then((T) => T.json())
       .then((data) => {
         if (
@@ -149,5 +142,33 @@ export class PlayerAPI {
    */
   getAllEPGLiveStreams(id: any) {
     return this.execute("get_simple_data_table", { stream_id: id });
+  }
+
+  /**
+   * Search for live streams by name
+   *
+   * @param {string} name
+   * @returns {Promise<Stream[]>}
+   */
+  searchLiveStreams(name: string): Promise<Stream[]> {
+    return this.execute("get_live_streams").then((streams) => {
+      return streams.filter((stream: Stream) =>
+        stream.name.toLowerCase().includes(name.toLowerCase())
+      );
+    });
+  }
+
+  /**
+   * Search for VOD streams by name
+   *
+   * @param {string} name
+   * @returns {Promise<Stream[]>}
+   */
+  searchVODStreams(name: string): Promise<Stream[]> {
+    return this.execute("get_vod_streams").then((streams) => {
+      return streams.filter((stream: Stream) =>
+        stream.name.toLowerCase().includes(name.toLowerCase())
+      );
+    });
   }
 }

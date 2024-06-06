@@ -9,6 +9,8 @@ import {
   getLiveStreamsByCategory,
   getStreamUrl,
   getLiveEPG,
+  searchLiveTV,
+  searchVOD,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
@@ -233,10 +235,10 @@ xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
 
 /**
  * @swagger
- * /api/v1/live-epg:
+ * /api/v1/live-stream-epg:
  *   get:
- *     summary: Get Live EPG Streams
- *     tags: [EPG]
+ *     summary: Get Live Streams EPG
+ *     tags: [Live Stream]
  *     parameters:
  *       - in: header
  *         name: device-id
@@ -260,6 +262,68 @@ xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.LIVE_EPG, verifyUser, getLiveEPG);
+xstreamRoute.get(END_POINTS.LIVE_STREAM_EPG, verifyUser, getLiveEPG);
+
+/**
+ * @swagger
+ * /api/v1/search-livetv:
+ *   get:
+ *     summary: Get Live Streams by name search
+ *     tags: [Live Stream]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: name
+ *     responses:
+ *       200:
+ *         description: Live tv retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, searchLiveTV);
+
+/**
+ * @swagger
+ * /api/v1/search-vod:
+ *   get:
+ *     summary: Get VOD Streams by name search
+ *     tags: [VOD]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: name
+ *     responses:
+ *       200:
+ *         description: vod retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, searchVOD);
 
 export default xstreamRoute;
