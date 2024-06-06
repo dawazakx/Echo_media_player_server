@@ -3,8 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import { connectDatabase } from "./config/database";
 import { PREFIXES } from "./config/endPoints";
-import userRoute from "./Routes/user.route";
 import UserRoute from "./Routes/user";
+import xstreamRoute from "./Routes/xstream.route";
 
 // Establish connection to DB
 connectDatabase();
@@ -22,7 +22,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hey sparans");
 });
 
-app.use(PREFIXES.API, userRoute);
+app.use(PREFIXES.API, xstreamRoute);
 
 app.use(PREFIXES.API + PREFIXES.USER, UserRoute);
 

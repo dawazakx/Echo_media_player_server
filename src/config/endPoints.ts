@@ -8,6 +8,7 @@ const END_POINTS = {
   VOD_STREAMS: "/vod-stream",
 
   SIGNUP: "/signup",
+  LIVE_EPG: "/live-epg",
 };
 
 const PREFIXES = {
