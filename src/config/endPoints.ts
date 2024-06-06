@@ -10,6 +10,7 @@ const END_POINTS = {
   SIGNUP: "/signup",
   LIVE_EPG: "/live-epg",
   SEARCH_LIVE_STREAM: "/search-liveTv",
+  SEARCH_VOD: "/search-vod",
 };
 
 const PREFIXES = {
