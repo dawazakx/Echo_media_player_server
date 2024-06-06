@@ -157,4 +157,18 @@ export class PlayerAPI {
       );
     });
   }
+
+  /**
+   * Search for VOD streams by name
+   *
+   * @param {string} name
+   * @returns {Promise<Stream[]>}
+   */
+  searchVODStreams(name: string): Promise<Stream[]> {
+    return this.execute("get_vod_streams").then((streams) => {
+      return streams.filter((stream: Stream) =>
+        stream.name.toLowerCase().includes(name.toLowerCase())
+      );
+    });
+  }
 }

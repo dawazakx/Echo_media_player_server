@@ -10,6 +10,7 @@ import {
   getStreamUrl,
   getLiveEPG,
   searchLiveTV,
+  searchVOD,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
@@ -293,5 +294,36 @@ xstreamRoute.get(END_POINTS.LIVE_EPG, verifyUser, getLiveEPG);
  *         description: Server error
  */
 xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, searchLiveTV);
+
+/**
+ * @swagger
+ * /api/v1/search-vod:
+ *   get:
+ *     summary: Get VOD Streams
+ *     tags: [VOD]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: name
+ *     responses:
+ *       200:
+ *         description: vod retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, searchVOD);
 
 export default xstreamRoute;
