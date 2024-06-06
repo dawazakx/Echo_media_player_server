@@ -7,6 +7,7 @@ const END_POINTS = {
   LIVE_STREAMS: "/live-stream",
   VOD_STREAMS: "/vod-stream",
   LIVE_EPG: "/live-epg",
+  SEARCH_LIVE_STREAM: "/search-liveTv",
 };
 
 const PREFIXES = {
