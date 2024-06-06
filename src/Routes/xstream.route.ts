@@ -266,7 +266,7 @@ xstreamRoute.get(END_POINTS.LIVE_EPG, verifyUser, getLiveEPG);
 
 /**
  * @swagger
- * /api/v1/search-liveTv:
+ * /api/v1/search-livetv:
  *   get:
  *     summary: Get Live EPG Streams
  *     tags: [Live Stream]
