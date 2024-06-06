@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import configs from "../config/config";
 import IUser from "../interfaces/user.interface";
 
-const secretKey = configs.SECRET_KEY;
+const jwtSecretKey = configs.JWT_SECRET_KEY;
 
 const generateToken = (userInstance: IUser & { _id: string }): string => {
   const payload = {
@@ -10,7 +10,7 @@ const generateToken = (userInstance: IUser & { _id: string }): string => {
     email: userInstance.email,
   };
 
-  const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
+  const token = jwt.sign(payload, jwtSecretKey, { expiresIn: "7d" });
 
   return token;
 };
