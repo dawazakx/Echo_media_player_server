@@ -27,8 +27,7 @@ const createUser = async (userData: IUser, res: Response) => {
 
     // Set OTP in server cookie to expire in one hour
 
-    res.cookie("signup_otp", otp, { httpOnly: true, maxAge: 3600000 });
-    res.cookie("otp.expires", Date.now() + 3600000, { httpOnly: true, secure: true });
+    res.cookie(`signup_otp${otp}`, otp, { httpOnly: true, maxAge: 3600000 });
 
     // Omit the password field from the returned user data
     const { password, ...userDataWithoutPassword } = user.toObject();
@@ -59,7 +58,7 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
     }
 
     // Retrieve OTP from cookies
-    const cookieOTP = req.cookies.signup_otp;
+    const cookieOTP = req.cookies[`signup_otp${otp}`];
 
     if (!cookieOTP || cookieOTP !== otp) {
       throw {
@@ -69,7 +68,7 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
     }
 
     const now = new Date().getTime();
-    const cookieExpiry = req.cookies["otp.expires"];
+    const cookieExpiry = req.cookies[`signup_otp${otp}`];
     if (!cookieExpiry || now > cookieExpiry) {
       throw {
         status: 400,
