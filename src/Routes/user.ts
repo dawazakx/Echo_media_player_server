@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { END_POINTS } from "../config/endPoints";
-import { signup } from "../controllers/user.controller";
+import { signup, verifyUserOtp } from "../controllers/user.controller";
 
 const UserRoute = Router();
 
@@ -40,5 +40,35 @@ const UserRoute = Router();
  *         description: Server error
  */
 UserRoute.post(END_POINTS.SIGNUP, signup);
+
+/**
+ * @swagger
+ * /api/v1/user/verify:
+ *   post:
+ *     summary: Account verification
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               otp:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *                 default: test1@mailinator.com
+ *     responses:
+ *       200:
+ *         description: User verified
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+UserRoute.post(END_POINTS.VERIFY_USER, verifyUserOtp);
 
 export default UserRoute;

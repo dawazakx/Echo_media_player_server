@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import IUser from "../interfaces/user.interface";
 import UserModel from "../models/user.model";
 import { sendOtp } from "./sendOtp.service";
@@ -26,7 +26,8 @@ const createUser = async (userData: IUser, res: Response) => {
     await user.save();
 
     // Set OTP in server cookie to expire in one hour
-    res.cookie("signup_otp", otp, { httpOnly: true, maxAge: 3600000 });
+
+    res.cookie(`signup_otp${otp}`, otp, { httpOnly: true, maxAge: 3600000 });
 
     // Omit the password field from the returned user data
     const { password, ...userDataWithoutPassword } = user.toObject();
@@ -43,4 +44,44 @@ const createUser = async (userData: IUser, res: Response) => {
   }
 };
 
-export default createUser;
+const verifyUserWithOTP = async (req: Request, res: Response) => {
+  try {
+    const { email, otp } = req.body;
+
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      throw {
+        status: 404,
+        message: "User not found",
+      };
+    }
+
+    // Retrieve OTP from cookies
+    const cookieOTP = req.cookies[`signup_otp${otp}`];
+
+    if (!cookieOTP || cookieOTP !== otp) {
+      throw {
+        status: 400,
+        message: "OTP is either expired or invalid",
+      };
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    // Destroy the OTP cookie
+    res.clearCookie(`signup_otp${otp}`);
+
+    return {
+      message: "User verified successfully",
+    };
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export { createUser, verifyUserWithOTP };

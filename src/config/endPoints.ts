@@ -10,6 +10,8 @@ const END_POINTS = {
   SEARCH_LIVE_STREAM: "/search-livetv",
   SEARCH_VOD: "/search-vod",
   SIGNUP: "/signup",
+  VERIFY_USER: "/verify",
+  LIVE_EPG: "/live-epg",
 };
 
 const PREFIXES = {
