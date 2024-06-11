@@ -63,16 +63,7 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
     if (!cookieOTP || cookieOTP !== otp) {
       throw {
         status: 400,
-        message: "Invalid OTP",
-      };
-    }
-
-    const now = new Date().getTime();
-    const cookieExpiry = req.cookies[`signup_otp${otp}`];
-    if (!cookieExpiry || now > cookieExpiry) {
-      throw {
-        status: 400,
-        message: "OTP has expired",
+        message: "OTP is either expired or invalid",
       };
     }
 
@@ -80,7 +71,7 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
     await user.save();
 
     // Destroy the OTP cookie
-    res.clearCookie("signup_otp");
+    res.clearCookie(`signup_otp${otp}`);
 
     return {
       message: "User verified successfully",
