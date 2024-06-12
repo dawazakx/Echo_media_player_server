@@ -26,9 +26,9 @@ const createUser = async (userData: IUser, res: Response) => {
 
     await user.save();
 
-    // Set OTP in server cookie to expire in one hou
-    res.cookie("signup_otp", otp, { httpOnly: true, maxAge: 3600000 });
-    res.cookie("otp.expires", Date.now() + 3600000, { httpOnly: true, secure: true });
+    // Set OTP in server cookie to expire in one hour
+
+    res.cookie(`signup_otp${otp}`, otp, { httpOnly: true, maxAge: 3600000 });
 
     // Omit the password field from the returned user data
     const { password, ...userDataWithoutPassword } = user.toObject();
@@ -59,21 +59,12 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
     }
 
     // Retrieve OTP from cookies
-    const cookieOTP = req.cookies.otp;
+    const cookieOTP = req.cookies[`signup_otp${otp}`];
 
     if (!cookieOTP || cookieOTP !== otp) {
       throw {
         status: 400,
-        message: "Invalid OTP",
-      };
-    }
-
-    const now = new Date().getTime();
-    const cookieExpiry = req.cookies["otp.expires"];
-    if (!cookieExpiry || now > cookieExpiry) {
-      throw {
-        status: 400,
-        message: "OTP has expired",
+        message: "OTP is either expired or invalid",
       };
     }
 
@@ -81,7 +72,7 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
     await user.save();
 
     // Destroy the OTP cookie
-    res.clearCookie("otp");
+    res.clearCookie(`signup_otp${otp}`);
 
     return {
       message: "User verified successfully",
