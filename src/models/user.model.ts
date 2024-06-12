@@ -10,7 +10,6 @@ const UserSchema: Schema = new Schema(
     phone: { type: String },
     password: { type: String, required: true },
     isVerified: { type: Boolean },
-    token: { type: String },
   },
   {
     timestamps: true,

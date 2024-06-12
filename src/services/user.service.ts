@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import IUser from "../interfaces/user.interface";
 import UserModel from "../models/user.model";
 import { sendOtp } from "./sendOtp.service";
+import { generateToken } from "../utils/generateToken";
 
 const createUser = async (userData: IUser, res: Response) => {
   try {
@@ -84,4 +85,54 @@ const verifyUserWithOTP = async (req: Request, res: Response) => {
   }
 };
 
-export { createUser, verifyUserWithOTP };
+const login = async (email: string, password: string) => {
+  try {
+    // Find user by email
+    let user = await UserModel.findOne({ email: email });
+
+    // If user is not found by either email or username, throw an error
+    if (!user) {
+      throw {
+        status: 401,
+        message: "Invalid email",
+      };
+    }
+
+    // Check if the provided password matches the stored hashed password
+    const isPasswordValid = await user.comparePassword(password);
+
+    // If passwords don't match, throw an error
+    if (!isPasswordValid) {
+      throw {
+        status: 401,
+        message: "Invalid password",
+      };
+    }
+
+    if (!user.isVerified) {
+      throw {
+        status: 401,
+        message: "User is not verified",
+      };
+    }
+
+    // Generate a new token for the user
+    const newToken = generateToken(user);
+
+    // Omit the password field from the returned user data
+    const { password: _, ...userDataWithoutPassword } = user.toObject();
+
+    return {
+      message: "Login successful",
+      token: newToken,
+      user: userDataWithoutPassword,
+    };
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export { createUser, verifyUserWithOTP, login };
