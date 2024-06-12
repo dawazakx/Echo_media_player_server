@@ -119,15 +119,12 @@ const login = async (email: string, password: string) => {
     // Generate a new token for the user
     const newToken = generateToken(user);
 
-    // Update the user's token in the database
-    user.access_token = newToken;
-    await user.save();
-
     // Omit the password field from the returned user data
     const { password: _, ...userDataWithoutPassword } = user.toObject();
 
     return {
       message: "Login successful",
+      token: newToken,
       user: userDataWithoutPassword,
     };
   } catch (error: any) {
