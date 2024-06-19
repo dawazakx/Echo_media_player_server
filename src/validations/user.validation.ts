@@ -33,4 +33,10 @@ const userLogin = Joi.object({
   }),
 });
 
-export { register, userOtp, userLogin };
+const resendOtpValidation = Joi.object({
+  email: Joi.string().email().required().messages({
+    "any.required": "Email is required",
+  }),
+});
+
+export { register, userOtp, userLogin, resendOtpValidation };
