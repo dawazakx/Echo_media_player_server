@@ -6,6 +6,7 @@ export type PlayerApiConfig = {
 export type Filter = {
   category_id?: string;
   vod_id?: string | number;
+  series_id?: string | number;
   stream_id?: any;
   limit?: any;
   name?: string;

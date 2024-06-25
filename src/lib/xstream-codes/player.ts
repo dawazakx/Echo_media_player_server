@@ -88,6 +88,10 @@ export class PlayerAPI {
     return this.execute("get_vod_categories");
   }
 
+  getSeriesStreamCategories(): Promise<Category[]> {
+    return this.execute("get_series_categories");
+  }
+
   getStreamURL(stream_id: number, stream_extension: string) {
     return `${this.config.baseUrl}/movie/${this.config.auth.username}/${this.config.auth.password}/${stream_id}.${stream_extension}`;
   }
@@ -104,6 +108,20 @@ export class PlayerAPI {
    */
   getVODStreams(category: any): Promise<Stream[]> {
     return this.execute("get_vod_streams", { category_id: category });
+  }
+
+  /**
+   * @param {string} [category]
+   */
+  getSeriesStreams(category: any): Promise<Stream[]> {
+    return this.execute("get_series", { category_id: category });
+  }
+
+  /**
+   * @param {string} [series]
+   */
+  getSeriesInfo(series: any): Promise<Stream[]> {
+    return this.execute("get_series_info", { series_id: series });
   }
 
   /**
