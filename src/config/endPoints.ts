@@ -11,6 +11,7 @@ const END_POINTS = {
   SEARCH_VOD: "/search-vod",
   SIGNUP: "/signup",
   VERIFY_USER: "/verify",
+  LOGIN: "/login",
   LIVE_EPG: "/live-epg",
 };
 
