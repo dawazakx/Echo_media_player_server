@@ -14,6 +14,7 @@ const END_POINTS = {
   LOGIN: "/login",
   LIVE_EPG: "/live-epg",
   SERIES_CATEGORY: "/series-category",
+  SERIES_STREAMS: "/series-streams",
 };
 
 const PREFIXES = {
