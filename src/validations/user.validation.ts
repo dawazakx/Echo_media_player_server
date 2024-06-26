@@ -39,4 +39,16 @@ const forgotPasswordValid = Joi.object({
   }),
 });
 
-export { register, userOtp, userLogin, forgotPasswordValid };
+const resetPasswordValidation = Joi.object({
+  email: Joi.string().email().required().messages({
+    "any.required": "Email is required",
+  }),
+  password: Joi.string().required().messages({
+    "any.required": "Password is required",
+  }),
+  otp: Joi.string().required().messages({
+    "any.required": "Password is required",
+  }),
+});
+
+export { register, userOtp, userLogin, forgotPasswordValid, resetPasswordValidation };

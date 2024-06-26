@@ -14,6 +14,7 @@ const END_POINTS = {
   LOGIN: "/login",
   LIVE_EPG: "/live-epg",
   FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
 };
 
 const PREFIXES = {
