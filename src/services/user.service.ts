@@ -135,4 +135,46 @@ const login = async (email: string, password: string) => {
   }
 };
 
-export { createUser, verifyUserWithOTP, login };
+const resendOtp = async (email: string, res: Response, req: Request) => {
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      throw {
+        status: 404,
+        message: "User not found",
+      };
+    }
+
+    if (user.isVerified) {
+      throw {
+        status: 400,
+        message: "User is already verified",
+      };
+    }
+
+    // Clear previous OTP cookie if exists
+    const previousOtpCookie = Object.keys(req.cookies).find((cookie) =>
+      cookie.startsWith("signup_otp")
+    );
+    if (previousOtpCookie) {
+      res.clearCookie(previousOtpCookie);
+    }
+
+    const { otp } = await sendOtp(user.email, user.firstName);
+
+    // Set new OTP in server cookie to expire in one hour
+    res.cookie(`signup_otp${otp}`, otp, { httpOnly: true, maxAge: 3600000 });
+
+    return {
+      message: "OTP resent to your email",
+    };
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export { createUser, verifyUserWithOTP, login, resendOtp };
