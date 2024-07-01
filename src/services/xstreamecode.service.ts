@@ -374,3 +374,16 @@ export const searchVODData = async (device_id: string, name: string) => {
     };
   }
 };
+
+export const fetchPlaylists = async (device_id: string, user?: { email: string }) => {
+  if (user) {
+    const playlists = await PlaylistModel.find({ email: user.email });
+    return playlists;
+  } else {
+    const playlists = await PlaylistModel.find({ device_id });
+    if (!playlists.length) {
+      throw { status: 404, message: "Playlists not found" };
+    }
+    return playlists;
+  }
+};

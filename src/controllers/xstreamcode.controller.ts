@@ -9,6 +9,7 @@ import {
   getEPGData,
   searchLiveData,
   searchVODData,
+  fetchPlaylists,
 } from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
 import { connectX } from "../validations/playlist.validation";
@@ -139,6 +140,19 @@ export const searchVOD = async (req: Request, res: Response) => {
 
     const vod = await searchVODData(device_id, name as string);
     res.status(200).json({ vod });
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const getDevicePlaylists = async (req: Request | any, res: Response) => {
+  try {
+    const device_id = req.headers["device-id"] as string;
+    const user = req.user;
+
+    const playlists = await fetchPlaylists(device_id, user);
+
+    res.status(200).json({ playlists });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }

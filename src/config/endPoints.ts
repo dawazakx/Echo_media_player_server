@@ -14,6 +14,7 @@ const END_POINTS = {
   LOGIN: "/login",
   LIVE_EPG: "/live-epg",
   RESEND_OTP: "/resend-otp",
+  USER_PLAYLIST: "/playlist",
 };
 
 const PREFIXES = {
