@@ -15,6 +15,7 @@ const END_POINTS = {
   LIVE_EPG: "/live-epg",
   RESEND_OTP: "/resend-otp",
   USER_PLAYLIST: "/playlist",
+  UPDATE_PLAYLIST: "/update-playlist",
 };
 
 const PREFIXES = {
