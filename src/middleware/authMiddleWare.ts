@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import DeviceModel from "../models/device.model";
+import { chechJwt } from "./helpers";
 
 export const verifyUser = async (req: Request | any, res: Response, next: NextFunction) => {
   try {
@@ -35,22 +36,28 @@ export const verifyUser = async (req: Request | any, res: Response, next: NextFu
   }
 };
 
-export const verifyChannel = async (req: Request | any, res: Response, next: NextFunction) => {
+export const verifyToken = async (req: Request | any, res: Response, next: NextFunction) => {
   try {
-    const channelId = req.headers["channel-id"] as string;
-
-    if (!channelId) {
+    if (!req.headers.authorization) {
       return res.status(StatusCodes.UNAUTHORIZED).json({
-        message: "Channel ID missing in headers",
+        message: "user Unauthorized",
         status: false,
       });
     }
+    // console.log(req.headers, "TOKEN::::");
+    const token: any = await chechJwt(req.headers.authorization?.split(" ")[1]);
+    if (!token)
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        message: "Invalid token",
+        status: false,
+      });
+
+    req.user = token;
 
     next();
-  } catch (err: any) {
-    console.error("Error validating user:", err.message);
+  } catch (err) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
-      message: "User validation error",
+      message: "Token validation error",
       status: false,
     });
   }
