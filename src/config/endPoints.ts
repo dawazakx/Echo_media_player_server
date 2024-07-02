@@ -13,6 +13,7 @@ const END_POINTS = {
   VERIFY_USER: "/verify",
   LOGIN: "/login",
   LIVE_EPG: "/live-epg",
+  SERIES_CATEGORY: "/series-category",
   RESEND_OTP: "/resend-otp",
 };
 
