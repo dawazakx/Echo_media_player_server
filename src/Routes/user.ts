@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { END_POINTS } from "../config/endPoints";
-import { loginUser, signup, verifyUserOtp } from "../controllers/user.controller";
+import {
+  loginUser,
+  resendUserOtp,
+  signup,
+  verifyUserOtp,
+} from "../controllers/user.controller";
 
 const UserRoute = Router();
 
@@ -100,5 +105,33 @@ UserRoute.post(END_POINTS.VERIFY_USER, verifyUserOtp);
  *         description: Server error
  */
 UserRoute.post(END_POINTS.LOGIN, loginUser);
+
+/**
+ * @swagger
+ * /api/v1/user/resend-otp:
+ *   post:
+ *     summary: Resend OTP
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 default: test1@mailinator.com
+ *     responses:
+ *       200:
+ *         description: User verified
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+UserRoute.post(END_POINTS.RESEND_OTP, resendUserOtp);
 
 export default UserRoute;
