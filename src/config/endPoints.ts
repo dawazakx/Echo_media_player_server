@@ -15,6 +15,7 @@ const END_POINTS = {
   LIVE_EPG: "/live-epg",
   SERIES_CATEGORY: "/series-category",
   SERIES_STREAMS: "/series-streams",
+  SERIES_INFO: "/series-info",
   RESEND_OTP: "/resend-otp",
 };
 

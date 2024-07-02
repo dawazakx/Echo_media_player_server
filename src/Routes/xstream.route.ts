@@ -13,6 +13,7 @@ import {
   searchVOD,
   getSeriesCategories,
   getSeriesStreamsByCategory,
+  getSeriesInfo,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
@@ -383,5 +384,36 @@ xstreamRoute.get(END_POINTS.SERIES_CATEGORY, verifyUser, getSeriesCategories);
  *         description: Server error
  */
 xstreamRoute.get(END_POINTS.SERIES_STREAMS, verifyUser, getSeriesStreamsByCategory);
+
+/**
+ * @swagger
+ * /api/v1/series-info:
+ *   get:
+ *     summary: Get Series Info
+ *     tags: [Series]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: query
+ *         name: series_id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Series ID
+ *     responses:
+ *       200:
+ *         description: Series info retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, getSeriesInfo);
 
 export default xstreamRoute;
