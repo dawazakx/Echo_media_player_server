@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import validationMiddleware from "../middleware/validation.middleware";
-import { createUser, forgotPassword, login, verifyUserWithOTP } from "../services/user.service";
+import { createUser, forgotPassword, login, resendOtp, verifyUserWithOTP } from "../services/user.service";
 import {
   forgotPasswordValid,
   register,
+  resendOtpValidation,
   userLogin,
   userOtp,
 } from "../validations/user.validation";
@@ -36,6 +37,18 @@ export const loginUser = async (req: Request, res: Response) => {
       const { email, password } = req.body;
       const user = await login(email, password);
       res.status(200).json(user);
+    } catch (error: any) {
+      res.status(error.status).json({ message: error.message || "Internal Server Error" });
+    }
+  });
+};
+
+export const resendUserOtp = async (req: Request, res: Response) => {
+  await validationMiddleware(resendOtpValidation)(req, res, async () => {
+    try {
+      const { email } = req.body;
+      const response = await resendOtp(email, res, req);
+      res.status(200).json(response);
     } catch (error: any) {
       res.status(error.status).json({ message: error.message || "Internal Server Error" });
     }
