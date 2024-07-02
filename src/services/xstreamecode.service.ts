@@ -412,3 +412,45 @@ export const getSeriesCategoriesService = async (device_id: string): Promise<Cat
     };
   }
 };
+
+export const getSeriesStreams = async (
+  device_id: string,
+  category_id: string
+): Promise<Stream[]> => {
+  try {
+    const playlist = await PlaylistModel.findOne({ device_id });
+
+    if (!playlist) {
+      throw {
+        status: 404,
+        message: "No playlist found",
+      };
+    }
+
+    const { xtreamUserInfo, url } = playlist;
+
+    const userInfo = xtreamUserInfo as XtreamUserInfo;
+
+    if (!userInfo || !userInfo.username || !userInfo.password) {
+      throw {
+        status: 400,
+        message: "Invalid Xtream user info",
+      };
+    }
+
+    const { username, password } = userInfo;
+
+    const playerConfig: PlayerApiConfig = { baseUrl: url, auth: { username, password } };
+    const playerAPI = new PlayerAPI(playerConfig);
+
+    const series = await playerAPI.getSeriesStreams(category_id);
+
+    return series;
+  } catch (error: any) {
+    console.error("Error fetching series streams:", error.message);
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
