@@ -11,6 +11,8 @@ import {
   getLiveEPG,
   searchLiveTV,
   searchVOD,
+  getSeriesCategories,
+  getSeriesStreamsByCategory,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyUser } from "../middleware/authMiddleWare";
@@ -325,5 +327,61 @@ xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, searchLiveTV);
  *         description: Server error
  */
 xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, searchVOD);
+
+/**
+ * @swagger
+ * /api/v1/series-category:
+ *   get:
+ *     summary: Get Series Categories
+ *     tags: [Series]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *     responses:
+ *       200:
+ *         description: Series categories retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.SERIES_CATEGORY, verifyUser, getSeriesCategories);
+
+/**
+ * @swagger
+ * /api/v1/series-streams:
+ *   get:
+ *     summary: Get Series Streams
+ *     tags: [Series]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: query
+ *         name: category_id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Category ID
+ *     responses:
+ *       200:
+ *         description: Series streams retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.SERIES_STREAMS, verifyUser, getSeriesStreamsByCategory);
 
 export default xstreamRoute;

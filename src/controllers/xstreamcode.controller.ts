@@ -9,6 +9,8 @@ import {
   getEPGData,
   searchLiveData,
   searchVODData,
+  getSeriesCategoriesService,
+  getSeriesStreams,
 } from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
 import { connectX } from "../validations/playlist.validation";
@@ -139,6 +141,28 @@ export const searchVOD = async (req: Request, res: Response) => {
 
     const vod = await searchVODData(device_id, name as string);
     res.status(200).json({ vod });
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const getSeriesCategories = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers["device-id"] as string;
+    const seriesCategories = await getSeriesCategoriesService(device_id);
+    res.status(200).json({ seriesCategories });
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const getSeriesStreamsByCategory = async (req: Request, res: Response) => {
+  try {
+    const device_id = req.headers["device-id"] as string;
+    const { category_id } = req.query;
+
+    const series = await getSeriesStreams(device_id, category_id as string);
+    res.status(200).json({ series });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }
