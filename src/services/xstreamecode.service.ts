@@ -17,14 +17,14 @@ export const connectToDevice = async (xtream: IXstreame) => {
       };
     }
 
-    const existingUser = await PlaylistModel.findOne({ device_id });
+    // const existingUser = await PlaylistModel.findOne({ device_id });
 
-    if (existingUser) {
-      throw {
-        status: 400,
-        message: "A user with the same device ID already exists",
-      };
-    }
+    // if (existingUser) {
+    //   throw {
+    //     status: 400,
+    //     message: "A user with the same device ID already exists",
+    //   };
+    // }
 
     const playerConfig: PlayerApiConfig = { baseUrl: xtream.url, auth: { username, password } };
     const playerAPI = new PlayerAPI(playerConfig);
