@@ -177,4 +177,30 @@ const resendOtp = async (email: string, res: Response, req: Request) => {
   }
 };
 
-export { createUser, verifyUserWithOTP, login, resendOtp };
+const forgotPassword = async (email: string, res: Response) => {
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      throw {
+        status: 404,
+        message: "User not found",
+      };
+    }
+
+    const { otp } = await sendOtp(email, user.firstName);
+
+    res.cookie("forgot_password_otp", otp, { httpOnly: true, maxAge: 3600000 });
+
+    return {
+      message: "OTP sent to your email for password reset",
+    };
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export { createUser, verifyUserWithOTP, login, resendOtp, forgotPassword };
