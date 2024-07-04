@@ -7,6 +7,7 @@ export default interface IXstreame extends Document {
   device_id: string;
   url: string;
   xtreamUserInfo: object;
+  email: string;
 }
 
 export interface XtreamUserInfo {

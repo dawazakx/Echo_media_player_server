@@ -17,6 +17,7 @@ const END_POINTS = {
   SERIES_STREAMS: "/series-streams",
   SERIES_INFO: "/series-info",
   RESEND_OTP: "/resend-otp",
+  USER_PLAYLIST: "/playlist",
 };
 
 const PREFIXES = {

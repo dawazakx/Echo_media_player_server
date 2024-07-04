@@ -14,9 +14,10 @@ import {
   getSeriesCategories,
   getSeriesStreamsByCategory,
   getSeriesInfo,
+  getDevicePlaylists,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
-import { verifyUser } from "../middleware/authMiddleWare";
+import { verifyToken, verifyUser } from "../middleware/authMiddleWare";
 
 const xstreamRoute = Router();
 
@@ -415,5 +416,36 @@ xstreamRoute.get(END_POINTS.SERIES_STREAMS, verifyUser, getSeriesStreamsByCatego
  *         description: Server error
  */
 xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, getSeriesInfo);
+
+/**
+ * @swagger
+ * /api/v1/playlist:
+ *   get:
+ *     summary: Get User playlist
+ *     tags: [User]
+ *     parameters:
+ *       - in: header
+ *         name: device-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: playlist retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.USER_PLAYLIST, verifyUser, verifyToken, getDevicePlaylists);
 
 export default xstreamRoute;

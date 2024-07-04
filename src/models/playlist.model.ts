@@ -8,6 +8,7 @@ const playlistSchema = new Schema<IXstreame>({
   device_id: { type: String },
   url: { type: String, required: true },
   xtreamUserInfo: { type: Object },
+  email: { type: String, unique: true },
 });
 
 const PlaylistModel = model<IXstreame>("Playlist", playlistSchema);
