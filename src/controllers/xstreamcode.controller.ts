@@ -13,6 +13,7 @@ import {
   getSeriesStreams,
   getSeriesInfoService,
   fetchPlaylists,
+  updatePlaylistNicknameService,
 } from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
 import { connectX } from "../validations/playlist.validation";
@@ -190,6 +191,20 @@ export const getDevicePlaylists = async (req: Request | any, res: Response) => {
     const playlists = await fetchPlaylists(device_id, user);
 
     res.status(200).json({ playlists });
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const updatePlaylistNickname = async (req: Request, res: Response) => {
+  try {
+    const { nickname, playlistId } = req.body;
+
+    const updatedPlaylist = await updatePlaylistNicknameService(playlistId, nickname);
+
+    res
+      .status(200)
+      .json({ message: "Playlist nickname updated successfully", updatedPlaylist });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }

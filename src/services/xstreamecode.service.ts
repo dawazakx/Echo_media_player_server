@@ -508,3 +508,21 @@ export const fetchPlaylists = async (device_id: string, user?: { email: string }
     return playlists;
   }
 };
+
+export const updatePlaylistNicknameService = async (playlistId: string, nickname: string) => {
+  try {
+    const playlist = await PlaylistModel.findByIdAndUpdate(
+      playlistId,
+      { nickname },
+      { new: true }
+    );
+
+    if (!playlist) {
+      throw { status: 404, message: "Playlist not found" };
+    }
+
+    return playlist;
+  } catch (error: any) {
+    throw { status: error.status || 500, message: error.message || "Internal Server Error" };
+  }
+};

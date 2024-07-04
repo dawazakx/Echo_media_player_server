@@ -15,6 +15,7 @@ import {
   getSeriesStreamsByCategory,
   getSeriesInfo,
   getDevicePlaylists,
+  updatePlaylistNickname,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyToken, verifyUser } from "../middleware/authMiddleWare";
@@ -447,5 +448,33 @@ xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, getSeriesInfo);
  *         description: Server error
  */
 xstreamRoute.get(END_POINTS.USER_PLAYLIST, verifyUser, verifyToken, getDevicePlaylists);
+
+/**
+ * @swagger
+ * /api/v1/update-playlist:
+ *   patch:
+ *     summary: update playlist
+ *     tags: [Xstream]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               playlist_id:
+ *                 type: string
+ *               nickname:
+ *                 type: string
+ *                 default: kelz
+ *     responses:
+ *       200:
+ *         description: Successfully updated playlist nickname
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.patch(END_POINTS.UPDATE_PLAYLIST, updatePlaylistNickname);
 
 export default xstreamRoute;
