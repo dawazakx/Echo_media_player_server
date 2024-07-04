@@ -203,4 +203,46 @@ const forgotPassword = async (email: string, res: Response) => {
   }
 };
 
-export { createUser, verifyUserWithOTP, login, resendOtp, forgotPassword };
+const resetPassword = async (
+  email: string,
+  otp: string,
+  password: string,
+  req: Request,
+  res: Response
+) => {
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      throw {
+        status: 404,
+        message: "User not found",
+      };
+    }
+
+    const cookieOTP = req.cookies["forgot_password_otp"];
+
+    if (!cookieOTP || cookieOTP !== otp) {
+      throw {
+        status: 400,
+        message: "OTP is either expired or invalid",
+      };
+    }
+
+    user.password = password;
+    await user.save();
+
+    res.clearCookie("forgot_password_otp");
+
+    return {
+      message: "Password reset successfully",
+    };
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export { createUser, verifyUserWithOTP, login, resendOtp, forgotPassword, resetPassword };

@@ -14,6 +14,7 @@ const END_POINTS = {
   LOGIN: "/login",
   LIVE_EPG: "/live-epg",
   FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
   SERIES_CATEGORY: "/series-category",
   SERIES_STREAMS: "/series-streams",
   SERIES_INFO: "/series-info",
