@@ -23,6 +23,7 @@ const END_POINTS = {
   UPDATE_PLAYLIST: "/update-playlist",
   REGISTER_ADMIN: "/register-admin",
   LOGIN_ADMIN: "/login",
+  CHANGE_PASSWORD: "/change-password",
 };
 
 const PREFIXES = {

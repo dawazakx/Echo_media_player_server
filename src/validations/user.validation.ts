@@ -57,4 +57,18 @@ const resetPasswordValidation = Joi.object({
   }),
 });
 
-export { register, userOtp, userLogin, resendOtpValidation, forgotPasswordValid, resetPasswordValidation  };
+const changePasswordValidation = Joi.object({
+  password: Joi.string().required().messages({
+    "any.required": "Password is required",
+  }),
+});
+
+export {
+  register,
+  userOtp,
+  userLogin,
+  resendOtpValidation,
+  forgotPasswordValid,
+  resetPasswordValidation,
+  changePasswordValidation,
+};

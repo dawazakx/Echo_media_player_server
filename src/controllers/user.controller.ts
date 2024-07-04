@@ -7,6 +7,7 @@ import {
   resetPassword,
   resendOtp,
   verifyUserWithOTP,
+  changePasswordService,
 } from "../services/user.service";
 import {
   forgotPasswordValid,
@@ -15,6 +16,7 @@ import {
   register,
   userLogin,
   userOtp,
+  changePasswordValidation,
 } from "../validations/user.validation";
 
 export const signup = async (req: Request, res: Response) => {
@@ -83,6 +85,23 @@ export const resetPasswordHandler = async (req: Request, res: Response) => {
       res.status(200).json(response);
     } catch (error: any) {
       res.status(error.status).json({ message: error.message || "Internal Server Error" });
+    }
+  });
+};
+
+export const changeUserPassword = async (req: Request | any, res: Response) => {
+  await validationMiddleware(changePasswordValidation)(req, res, async () => {
+    try {
+      const { password } = req.body;
+      const user = req.user;
+
+      const userPassword = await changePasswordService(password, user);
+
+      res.status(200).json(userPassword);
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal Server Error" });
     }
   });
 };
