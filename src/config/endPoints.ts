@@ -22,6 +22,7 @@ const END_POINTS = {
   USER_PLAYLIST: "/playlist",
   UPDATE_PLAYLIST: "/update-playlist",
   REGISTER_ADMIN: "/register-admin",
+  LOGIN_ADMIN: "/login",
 };
 
 const PREFIXES = {
