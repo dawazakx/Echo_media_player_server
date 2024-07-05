@@ -7,7 +7,9 @@ import {
   resendUserOtp,
   signup,
   verifyUserOtp,
+  changeUserPassword,
 } from "../controllers/user.controller";
+import { verifyToken } from "../middleware/authMiddleWare";
 
 const UserRoute = Router();
 
@@ -195,5 +197,39 @@ UserRoute.post(END_POINTS.FORGOT_PASSWORD, forgotPasswordHandler);
  *         description: Server error
  */
 UserRoute.post(END_POINTS.RESET_PASSWORD, resetPasswordHandler);
+
+/**
+ * @swagger
+ * /api/v1/user/change-password:
+ *   post:
+ *     summary: Change Password
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       parameters:
+ *         - in: authorization
+ *           name: token
+ *           schema:
+ *             type: string
+ *           required: true
+ *           description: Bearer token for authentication
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User verified
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+UserRoute.post(END_POINTS.CHANGE_PASSWORD, verifyToken, changeUserPassword);
 
 export default UserRoute;

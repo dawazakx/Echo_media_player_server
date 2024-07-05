@@ -245,4 +245,28 @@ const resetPassword = async (
   }
 };
 
-export { createUser, verifyUserWithOTP, login, resendOtp, forgotPassword, resetPassword };
+const changePasswordService = async (password: string, user: { email: string }) => {
+  const existingEmailUser = await UserModel.findOne({ email: user.email });
+
+  if (!existingEmailUser) {
+    throw {
+      status: 400,
+      message: "Email does not exist",
+    };
+  }
+
+  existingEmailUser.password = password;
+  await existingEmailUser.save();
+
+  return { message: "Password updated successfully" };
+};
+
+export {
+  createUser,
+  verifyUserWithOTP,
+  login,
+  resendOtp,
+  forgotPassword,
+  resetPassword,
+  changePasswordService,
+};
