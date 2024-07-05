@@ -6,6 +6,7 @@ import { PREFIXES } from "./config/endPoints";
 import UserRoute from "./Routes/user";
 import cookieParser from "cookie-parser";
 import xstreamRoute from "./Routes/xstream.route";
+import adminRoute from "./Routes/admin.route";
 
 // Establish connection to DB
 connectDatabase();
@@ -28,5 +29,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use(PREFIXES.API, xstreamRoute);
 
 app.use(PREFIXES.API + PREFIXES.USER, UserRoute);
+
+app.use(PREFIXES.API + PREFIXES.ADMIN, adminRoute);
 
 export default app;

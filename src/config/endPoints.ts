@@ -21,10 +21,13 @@ const END_POINTS = {
   RESEND_OTP: "/resend-otp",
   USER_PLAYLIST: "/playlist",
   UPDATE_PLAYLIST: "/update-playlist",
+  REGISTER_ADMIN: "/register-admin",
+  LOGIN_ADMIN: "/login",
 };
 
 const PREFIXES = {
   API: "/api/v1/",
   USER: "user/",
+  ADMIN: "admin/",
 };
 export { END_POINTS, PREFIXES };
