@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { END_POINTS } from "../config/endPoints";
-import { createSubscription } from "../controllers/admin.controller";
+import {
+  createSubscription,
+  getAllSubscriptionsController,
+} from "../controllers/admin.controller";
 import { verifyToken } from "../middleware/authMiddleWare";
 
 const subscribeRoute = Router();
@@ -41,5 +44,23 @@ const subscribeRoute = Router();
  *         description: Server error
  */
 subscribeRoute.post(END_POINTS.SUBSCRIBE_APP, verifyToken, createSubscription);
+
+/**
+ * @swagger
+ * /api/v1/get-subscriptions:
+ *   post:
+ *     summary: App Subscription
+ *     tags: [Subscription]
+ *     responses:
+ *       201:
+ *         description: Successfully retrieved
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+subscribeRoute.post(END_POINTS.GET_SUBSCRIPTIONS, getAllSubscriptionsController);
 
 export default subscribeRoute;

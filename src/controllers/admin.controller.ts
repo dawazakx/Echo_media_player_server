@@ -5,7 +5,12 @@ import {
   registerAdmin,
   subscriptionValid,
 } from "../validations/admin.validation";
-import { appSubscription, createAdmin, loginAdmin } from "../services/admin.service";
+import {
+  appSubscription,
+  createAdmin,
+  getAllSubscriptions,
+  loginAdmin,
+} from "../services/admin.service";
 
 export const adminSignup = async (req: Request, res: Response) => {
   await validationMiddleware(registerAdmin)(req, res, async () => {
@@ -40,4 +45,13 @@ export const createSubscription = async (req: Request | any, res: Response) => {
       res.status(error.status).json({ message: error.message || "Internal Server Error" });
     }
   });
+};
+
+export const getAllSubscriptionsController = async (req: Request | any, res: Response) => {
+  try {
+    const subscriptions = await getAllSubscriptions();
+    res.status(200).json(subscriptions);
+  } catch (error: any) {
+    res.status(error.status).json({ message: error.message || "Internal Server Error" });
+  }
 };

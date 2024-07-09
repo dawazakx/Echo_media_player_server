@@ -100,3 +100,15 @@ export const appSubscription = async (data: ISubscription, user: { userType: str
     };
   }
 };
+
+export const getAllSubscriptions = async () => {
+  try {
+    const subscriptions = await SubscriptionModel.find({});
+    return subscriptions;
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};

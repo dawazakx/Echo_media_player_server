@@ -25,6 +25,7 @@ const END_POINTS = {
   LOGIN_ADMIN: "/login",
   CHANGE_PASSWORD: "/change-password",
   SUBSCRIBE_APP: "/subscribe",
+  GET_SUBSCRIPTIONS: "/get-subscriptions",
 };
 
 const PREFIXES = {
