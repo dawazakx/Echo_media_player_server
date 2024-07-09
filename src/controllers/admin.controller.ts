@@ -34,7 +34,6 @@ export const createSubscription = async (req: Request | any, res: Response) => {
   await validationMiddleware(subscriptionValid)(req, res, async () => {
     try {
       const user = req.user;
-      console.log(user, "userData");
       const data = await appSubscription(req.body, user);
       res.status(201).json(data);
     } catch (error: any) {
