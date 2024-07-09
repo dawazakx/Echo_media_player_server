@@ -7,6 +7,7 @@ import UserRoute from "./Routes/user";
 import cookieParser from "cookie-parser";
 import xstreamRoute from "./Routes/xstream.route";
 import adminRoute from "./Routes/admin.route";
+import subscribeRoute from "./Routes/subscribe.route";
 
 // Establish connection to DB
 connectDatabase();
@@ -31,5 +32,7 @@ app.use(PREFIXES.API, xstreamRoute);
 app.use(PREFIXES.API + PREFIXES.USER, UserRoute);
 
 app.use(PREFIXES.API + PREFIXES.ADMIN, adminRoute);
+
+app.use(PREFIXES.API, subscribeRoute);
 
 export default app;
