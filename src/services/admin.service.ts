@@ -1,5 +1,7 @@
 import IAdmin from "../interfaces/admin.interface";
+import ISubscription from "../interfaces/subscription.interface";
 import AdminModel from "../models/admin.model";
+import SubscriptionModel from "../models/subscription.model";
 import { generateToken } from "../utils/generateToken";
 
 export const createAdmin = async (userData: IAdmin) => {
@@ -55,7 +57,7 @@ export const loginAdmin = async (email: string, password: string) => {
       };
     }
 
-    const newToken = generateToken(admin);
+    const newToken = generateToken(admin, "admin");
 
     const { password: _, ...userDataWithoutPassword } = admin.toObject();
 
@@ -63,6 +65,33 @@ export const loginAdmin = async (email: string, password: string) => {
       message: "Login successful",
       token: newToken,
       user: userDataWithoutPassword,
+    };
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};
+
+export const appSubscription = async (data: ISubscription, user: { userType: string }) => {
+  try {
+    if (user.userType !== "admin") {
+      throw {
+        status: 401,
+        message: "Unauthorized access",
+      };
+    }
+
+    const newSubscription = new SubscriptionModel({
+      ...data,
+    });
+
+    await newSubscription.save();
+
+    return {
+      message: "Subscription created successfully",
+      subscription: newSubscription,
     };
   } catch (error: any) {
     throw {

@@ -24,6 +24,7 @@ const END_POINTS = {
   REGISTER_ADMIN: "/register-admin",
   LOGIN_ADMIN: "/login",
   CHANGE_PASSWORD: "/change-password",
+  SUBSCRIBE_APP: "/subscribe",
 };
 
 const PREFIXES = {
