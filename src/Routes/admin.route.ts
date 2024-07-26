@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { END_POINTS } from "../config/endPoints";
-import { adminLogin, adminSignup } from "../controllers/admin.controller";
+import { adminLogin, adminSignup, createSubscription } from "../controllers/admin.controller";
+import { verifyToken } from "../middleware/authMiddleWare";
 
 const adminRoute = Router();
 

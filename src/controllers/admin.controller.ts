@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 import validationMiddleware from "../middleware/validation.middleware";
-import { adminLoginValidation, registerAdmin } from "../validations/admin.validation";
-import { createAdmin, loginAdmin } from "../services/admin.service";
+import {
+  adminLoginValidation,
+  registerAdmin,
+  subscriptionValid,
+} from "../validations/admin.validation";
+import { appSubscription, createAdmin, loginAdmin } from "../services/admin.service";
 
 export const adminSignup = async (req: Request, res: Response) => {
   await validationMiddleware(registerAdmin)(req, res, async () => {
@@ -20,6 +24,18 @@ export const adminLogin = async (req: Request, res: Response) => {
       const { email, password } = req.body;
       const user = await loginAdmin(email, password);
       res.status(200).json(user);
+    } catch (error: any) {
+      res.status(error.status).json({ message: error.message || "Internal Server Error" });
+    }
+  });
+};
+
+export const createSubscription = async (req: Request | any, res: Response) => {
+  await validationMiddleware(subscriptionValid)(req, res, async () => {
+    try {
+      const user = req.user;
+      const data = await appSubscription(req.body, user);
+      res.status(201).json(data);
     } catch (error: any) {
       res.status(error.status).json({ message: error.message || "Internal Server Error" });
     }

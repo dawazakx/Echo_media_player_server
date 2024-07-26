@@ -4,11 +4,22 @@ import IUser from "../interfaces/user.interface";
 
 const jwtSecretKey = configs.JWT_SECRET_KEY;
 
-const generateToken = (userInstance: IUser & { _id: string }): string => {
-  const payload = {
+interface TokenPayload {
+  userId: string;
+  email: string;
+  userType?: string;
+}
+
+const generateToken = (userInstance: IUser & { _id: string }, userType?: string): string => {
+  const payload: TokenPayload = {
     userId: userInstance._id,
     email: userInstance.email,
+    userType,
   };
+
+  if (userType) {
+    payload.userType = userType;
+  }
 
   const token = jwt.sign(payload, jwtSecretKey, { expiresIn: "7d" });
 

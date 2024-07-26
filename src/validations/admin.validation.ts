@@ -24,4 +24,19 @@ const adminLoginValidation = Joi.object({
   }),
 });
 
-export { registerAdmin, adminLoginValidation };
+const subscriptionValid = Joi.object({
+  title: Joi.string().required().messages({
+    "any.required": "Title is required",
+  }),
+  num_of_devices: Joi.number().required().messages({
+    "any.required": "Number of device is required",
+  }),
+  amount: Joi.string().required().messages({
+    "any.required": "Amount is required",
+  }),
+  description: Joi.string().required().messages({
+    "any.required": "Description is required",
+  }),
+});
+
+export { registerAdmin, adminLoginValidation, subscriptionValid };
