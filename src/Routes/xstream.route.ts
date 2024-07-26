@@ -18,7 +18,8 @@ import {
   updatePlaylistNickname,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
-import { verifyByPlayerid, verifyToken, verifyUser } from "../middleware/authMiddleWare";
+import { verifyToken, verifyUser } from "../middleware/authMiddleWare";
+import { verifyByPlayerid } from "../middleware/playerMiddleware";
 
 const xstreamRoute = Router();
 
