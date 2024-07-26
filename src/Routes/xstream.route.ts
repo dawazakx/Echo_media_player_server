@@ -19,6 +19,7 @@ import {
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyToken, verifyUser } from "../middleware/authMiddleWare";
+import { verifyByPlayerid } from "../middleware/playerMiddleware";
 
 const xstreamRoute = Router();
 
@@ -102,6 +103,12 @@ xstreamRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *     responses:
  *       200:
  *         description: Live stream categories retrieved successfully
@@ -112,7 +119,12 @@ xstreamRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
+xstreamRoute.get(
+  END_POINTS.LIVE_STREAM_CATEGORY,
+  verifyUser,
+  verifyByPlayerid,
+  getLiveStreamCat
+);
 
 /**
  * @swagger
@@ -127,6 +139,12 @@ xstreamRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *     responses:
  *       200:
  *         description: VOD categories retrieved successfully
@@ -137,7 +155,12 @@ xstreamRoute.get(END_POINTS.LIVE_STREAM_CATEGORY, verifyUser, getLiveStreamCat);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategories);
+xstreamRoute.get(
+  END_POINTS.VOD_STREAM_CATEGORY,
+  verifyUser,
+  verifyByPlayerid,
+  getVODStreamCategories
+);
 
 /**
  * @swagger
@@ -152,6 +175,12 @@ xstreamRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategor
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: stream_id
  *         schema:
@@ -174,7 +203,7 @@ xstreamRoute.get(END_POINTS.VOD_STREAM_CATEGORY, verifyUser, getVODStreamCategor
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
+xstreamRoute.get(END_POINTS.STREAM_URL, verifyUser, verifyByPlayerid, getStreamUrl);
 
 /**
  * @swagger
@@ -189,6 +218,12 @@ xstreamRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: category_id
  *         schema:
@@ -205,7 +240,12 @@ xstreamRoute.get(END_POINTS.STREAM_URL, verifyUser, getStreamUrl);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
+xstreamRoute.get(
+  END_POINTS.LIVE_STREAMS,
+  verifyUser,
+  verifyByPlayerid,
+  getLiveStreamsByCategory
+);
 
 /**
  * @swagger
@@ -220,6 +260,12 @@ xstreamRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: category_id
  *         schema:
@@ -236,7 +282,7 @@ xstreamRoute.get(END_POINTS.LIVE_STREAMS, verifyUser, getLiveStreamsByCategory);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
+xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, verifyByPlayerid, getVODStreamsByCategory);
 
 /**
  * @swagger
@@ -251,6 +297,12 @@ xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: channelId
  *         schema:
@@ -267,7 +319,7 @@ xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, getVODStreamsByCategory);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.LIVE_STREAM_EPG, verifyUser, getLiveEPG);
+xstreamRoute.get(END_POINTS.LIVE_STREAM_EPG, verifyUser, verifyByPlayerid, getLiveEPG);
 
 /**
  * @swagger
@@ -282,6 +334,12 @@ xstreamRoute.get(END_POINTS.LIVE_STREAM_EPG, verifyUser, getLiveEPG);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: name
  *         schema:
@@ -298,7 +356,7 @@ xstreamRoute.get(END_POINTS.LIVE_STREAM_EPG, verifyUser, getLiveEPG);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, searchLiveTV);
+xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, verifyByPlayerid, searchLiveTV);
 
 /**
  * @swagger
@@ -313,6 +371,12 @@ xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, searchLiveTV);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: name
  *         schema:
@@ -329,7 +393,7 @@ xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, searchLiveTV);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, searchVOD);
+xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, verifyByPlayerid, searchVOD);
 
 /**
  * @swagger
@@ -344,6 +408,12 @@ xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, searchVOD);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *     responses:
  *       200:
  *         description: Series categories retrieved successfully
@@ -354,7 +424,7 @@ xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, searchVOD);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.SERIES_CATEGORY, verifyUser, getSeriesCategories);
+xstreamRoute.get(END_POINTS.SERIES_CATEGORY, verifyUser, verifyByPlayerid, getSeriesCategories);
 
 /**
  * @swagger
@@ -369,6 +439,12 @@ xstreamRoute.get(END_POINTS.SERIES_CATEGORY, verifyUser, getSeriesCategories);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: category_id
  *         schema:
@@ -385,7 +461,12 @@ xstreamRoute.get(END_POINTS.SERIES_CATEGORY, verifyUser, getSeriesCategories);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.SERIES_STREAMS, verifyUser, getSeriesStreamsByCategory);
+xstreamRoute.get(
+  END_POINTS.SERIES_STREAMS,
+  verifyUser,
+  verifyByPlayerid,
+  getSeriesStreamsByCategory
+);
 
 /**
  * @swagger
@@ -400,6 +481,12 @@ xstreamRoute.get(END_POINTS.SERIES_STREAMS, verifyUser, getSeriesStreamsByCatego
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: query
  *         name: series_id
  *         schema:
@@ -416,14 +503,14 @@ xstreamRoute.get(END_POINTS.SERIES_STREAMS, verifyUser, getSeriesStreamsByCatego
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, getSeriesInfo);
+xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, verifyByPlayerid, getSeriesInfo);
 
 /**
  * @swagger
  * /api/v1/playlist:
  *   get:
  *     summary: Get User playlist
- *     tags: [User]
+ *     tags: [Playlist]
  *     parameters:
  *       - in: header
  *         name: device-id
@@ -431,6 +518,12 @@ xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, getSeriesInfo);
  *           type: string
  *         required: true
  *         description: Device ID
+ *       - in: header
+ *         name: playlist-id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
  *       - in: header
  *         name: Authorization
  *         schema:
@@ -447,7 +540,13 @@ xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, getSeriesInfo);
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(END_POINTS.USER_PLAYLIST, verifyUser, verifyToken, getDevicePlaylists);
+xstreamRoute.get(
+  END_POINTS.USER_PLAYLIST,
+  verifyUser,
+  verifyByPlayerid,
+  verifyToken,
+  getDevicePlaylists
+);
 
 /**
  * @swagger
