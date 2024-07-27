@@ -540,13 +540,7 @@ xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, verifyByPlayerid, getSeries
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(
-  END_POINTS.USER_PLAYLIST,
-  verifyUser,
-  verifyByPlayerid,
-  verifyToken,
-  getDevicePlaylists
-);
+xstreamRoute.get(END_POINTS.USER_PLAYLIST, verifyUser, verifyToken, getDevicePlaylists);
 
 /**
  * @swagger
