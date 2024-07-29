@@ -519,12 +519,6 @@ xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, verifyByPlayerid, getSeries
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlist-id
- *         schema:
- *           type: string
- *         required: true
- *         description: Playlist ID
- *       - in: header
  *         name: Authorization
  *         schema:
  *           type: string
@@ -540,13 +534,7 @@ xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, verifyByPlayerid, getSeries
  *       500:
  *         description: Server error
  */
-xstreamRoute.get(
-  END_POINTS.USER_PLAYLIST,
-  verifyUser,
-  verifyByPlayerid,
-  verifyToken,
-  getDevicePlaylists
-);
+xstreamRoute.get(END_POINTS.USER_PLAYLIST, verifyUser, verifyToken, getDevicePlaylists);
 
 /**
  * @swagger
