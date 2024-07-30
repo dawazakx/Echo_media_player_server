@@ -32,8 +32,8 @@ export const connectToXstream = async (req: Request, res: Response) => {
 
 export const getLiveStreamCat = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
-    const categories = await getLiveStreamCategories(device_id);
+    const playlist_id = req.headers["playlist-id"] as string;
+    const categories = await getLiveStreamCategories(playlist_id);
     res.status(200).json({ categories });
   } catch (error: any) {
     console.error("Error fetching live stream categories:", error.message);
@@ -43,8 +43,8 @@ export const getLiveStreamCat = async (req: Request, res: Response) => {
 
 export const getVODStreamCategories = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
-    const vodCategories = await getVodCategories(device_id);
+    const playlist_id = req.headers["playlist-id"] as string;
+    const vodCategories = await getVodCategories(playlist_id);
     res.status(200).json({ vodCategories });
   } catch (error: any) {
     console.error("Error fetching VOD stream categories:", error.message);
@@ -54,10 +54,10 @@ export const getVODStreamCategories = async (req: Request, res: Response) => {
 
 export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const { category_id } = req.query;
 
-    const streams = await getLiveStreams(device_id, category_id as string);
+    const streams = await getLiveStreams(playlist_id, category_id as string);
     res.status(200).json({ streams });
   } catch (error: any) {
     console.error("Error fetching live streams:", error.message);
@@ -67,10 +67,10 @@ export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
 
 export const getVODStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const { category_id } = req.query;
 
-    const streams = await getVODStreams(device_id, category_id as string);
+    const streams = await getVODStreams(playlist_id, category_id as string);
     res.status(200).json({ streams });
   } catch (error: any) {
     console.error("Error fetching live streams:", error.message);
@@ -80,7 +80,7 @@ export const getVODStreamsByCategory = async (req: Request, res: Response) => {
 
 export const getStreamUrl = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const { stream_id, stream_extension } = req.query;
 
     if (!stream_id || !stream_extension) {
@@ -88,7 +88,7 @@ export const getStreamUrl = async (req: Request, res: Response) => {
     }
 
     const streamURL = await getStreamURL(
-      device_id,
+      playlist_id,
       Number(stream_id),
       stream_extension as string
     );
@@ -101,14 +101,14 @@ export const getStreamUrl = async (req: Request, res: Response) => {
 
 export const getLiveEPG = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const { channelId } = req.query;
 
     if (!channelId) {
       return res.status(400).json({ message: "channelId is required" });
     }
 
-    const epgData = await getEPGData(device_id, channelId as string);
+    const epgData = await getEPGData(playlist_id, channelId as string);
     res.status(200).json({ epgData });
   } catch (error: any) {
     console.error("Error fetching EPG data:", error.message);
@@ -118,14 +118,14 @@ export const getLiveEPG = async (req: Request, res: Response) => {
 
 export const searchLiveTV = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const { name } = req.query;
 
     if (!name) {
       return res.status(400).json({ message: "name is required" });
     }
 
-    const liveTV = await searchLiveData(device_id, name as string);
+    const liveTV = await searchLiveData(playlist_id, name as string);
     res.status(200).json({ liveTV });
   } catch (error: any) {
     console.error("Error fetching live tv:", error);
@@ -135,14 +135,14 @@ export const searchLiveTV = async (req: Request, res: Response) => {
 
 export const searchVOD = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const { name } = req.query;
 
     if (!name) {
       return res.status(400).json({ message: "name is required" });
     }
 
-    const vod = await searchVODData(device_id, name as string);
+    const vod = await searchVODData(playlist_id, name as string);
     res.status(200).json({ vod });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
@@ -151,8 +151,8 @@ export const searchVOD = async (req: Request, res: Response) => {
 
 export const getSeriesCategories = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
-    const seriesCategories = await getSeriesCategoriesService(device_id);
+    const playlist_id = req.headers["playlist-id"] as string;
+    const seriesCategories = await getSeriesCategoriesService(playlist_id);
     res.status(200).json({ seriesCategories });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
@@ -161,10 +161,10 @@ export const getSeriesCategories = async (req: Request, res: Response) => {
 
 export const getSeriesStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const { category_id } = req.query;
 
-    const series = await getSeriesStreams(device_id, category_id as string);
+    const series = await getSeriesStreams(playlist_id, category_id as string);
     res.status(200).json({ series });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
@@ -173,10 +173,10 @@ export const getSeriesStreamsByCategory = async (req: Request, res: Response) =>
 
 export const getSeriesInfo = async (req: Request, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const _id = req.headers["-id"] as string;
     const { series_id } = req.query;
 
-    const seriesInfo = await getSeriesInfoService(device_id, series_id as string);
+    const seriesInfo = await getSeriesInfoService(_id, series_id as string);
     res.status(200).json({ seriesInfo });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
@@ -185,10 +185,10 @@ export const getSeriesInfo = async (req: Request, res: Response) => {
 
 export const getDevicePlaylists = async (req: Request | any, res: Response) => {
   try {
-    const device_id = req.headers["device-id"] as string;
+    const playlist_id = req.headers["playlist-id"] as string;
     const user = req.user;
 
-    const playlists = await fetchPlaylists(device_id, user);
+    const playlists = await fetchPlaylists(playlist_id, user);
 
     res.status(200).json({ playlists });
   } catch (error: any) {
