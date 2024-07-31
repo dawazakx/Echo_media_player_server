@@ -32,7 +32,7 @@ export const connectToXstream = async (req: Request, res: Response) => {
 
 export const getLiveStreamCat = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const categories = await getLiveStreamCategories(playlist_id);
     res.status(200).json({ categories });
   } catch (error: any) {
@@ -43,7 +43,7 @@ export const getLiveStreamCat = async (req: Request, res: Response) => {
 
 export const getVODStreamCategories = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const vodCategories = await getVodCategories(playlist_id);
     res.status(200).json({ vodCategories });
   } catch (error: any) {
@@ -54,7 +54,7 @@ export const getVODStreamCategories = async (req: Request, res: Response) => {
 
 export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const { category_id } = req.query;
 
     const streams = await getLiveStreams(playlist_id, category_id as string);
@@ -67,7 +67,7 @@ export const getLiveStreamsByCategory = async (req: Request, res: Response) => {
 
 export const getVODStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const { category_id } = req.query;
 
     const streams = await getVODStreams(playlist_id, category_id as string);
@@ -80,7 +80,7 @@ export const getVODStreamsByCategory = async (req: Request, res: Response) => {
 
 export const getStreamUrl = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const { stream_id, stream_extension } = req.query;
 
     if (!stream_id || !stream_extension) {
@@ -101,7 +101,7 @@ export const getStreamUrl = async (req: Request, res: Response) => {
 
 export const getLiveEPG = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const { channelId } = req.query;
 
     if (!channelId) {
@@ -118,7 +118,7 @@ export const getLiveEPG = async (req: Request, res: Response) => {
 
 export const searchLiveTV = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const { name } = req.query;
 
     if (!name) {
@@ -135,7 +135,7 @@ export const searchLiveTV = async (req: Request, res: Response) => {
 
 export const searchVOD = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const { name } = req.query;
 
     if (!name) {
@@ -151,7 +151,7 @@ export const searchVOD = async (req: Request, res: Response) => {
 
 export const getSeriesCategories = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const seriesCategories = await getSeriesCategoriesService(playlist_id);
     res.status(200).json({ seriesCategories });
   } catch (error: any) {
@@ -161,7 +161,7 @@ export const getSeriesCategories = async (req: Request, res: Response) => {
 
 export const getSeriesStreamsByCategory = async (req: Request, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const { category_id } = req.query;
 
     const series = await getSeriesStreams(playlist_id, category_id as string);
@@ -173,7 +173,7 @@ export const getSeriesStreamsByCategory = async (req: Request, res: Response) =>
 
 export const getSeriesInfo = async (req: Request, res: Response) => {
   try {
-    const _id = req.headers["playlistId"] as string;
+    const _id = req.headers["playlistid"] as string;
     const { series_id } = req.query;
 
     const seriesInfo = await getSeriesInfoService(_id, series_id as string);
@@ -185,7 +185,7 @@ export const getSeriesInfo = async (req: Request, res: Response) => {
 
 export const getDevicePlaylists = async (req: Request | any, res: Response) => {
   try {
-    const playlist_id = req.headers["playlistId"] as string;
+    const playlist_id = req.headers["playlistid"] as string;
     const user = req.user;
 
     const playlists = await fetchPlaylists(playlist_id, user);
