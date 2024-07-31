@@ -98,13 +98,13 @@ xstreamRoute.post(END_POINTS.CREATE_DEVICE, createDevice);
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -134,13 +134,13 @@ xstreamRoute.get(
  *     tags: [VOD]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -170,13 +170,13 @@ xstreamRoute.get(
  *     tags: [Stream Url]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -213,13 +213,13 @@ xstreamRoute.get(END_POINTS.STREAM_URL, verifyUser, verifyByPlayerid, getStreamU
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -255,13 +255,13 @@ xstreamRoute.get(
  *     tags: [VOD]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -292,13 +292,13 @@ xstreamRoute.get(END_POINTS.VOD_STREAMS, verifyUser, verifyByPlayerid, getVODStr
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -329,13 +329,13 @@ xstreamRoute.get(END_POINTS.LIVE_STREAM_EPG, verifyUser, verifyByPlayerid, getLi
  *     tags: [Live Stream]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -366,13 +366,13 @@ xstreamRoute.get(END_POINTS.SEARCH_LIVE_STREAM, verifyUser, verifyByPlayerid, se
  *     tags: [VOD]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -403,13 +403,13 @@ xstreamRoute.get(END_POINTS.SEARCH_VOD, verifyUser, verifyByPlayerid, searchVOD)
  *     tags: [Series]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -434,13 +434,13 @@ xstreamRoute.get(END_POINTS.SERIES_CATEGORY, verifyUser, verifyByPlayerid, getSe
  *     tags: [Series]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -476,13 +476,13 @@ xstreamRoute.get(
  *     tags: [Series]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
  *         description: Device ID
  *       - in: header
- *         name: playlistId
+ *         name: playlistid
  *         schema:
  *           type: string
  *         required: true
@@ -513,7 +513,7 @@ xstreamRoute.get(END_POINTS.SERIES_INFO, verifyUser, verifyByPlayerid, getSeries
  *     tags: [Playlist]
  *     parameters:
  *       - in: header
- *         name: deviceId
+ *         name: deviceid
  *         schema:
  *           type: string
  *         required: true
