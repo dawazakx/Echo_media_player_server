@@ -50,9 +50,9 @@ export const connectToDevice = async (xtream: IXstreame) => {
   }
 };
 
-export const getLiveStreamCategories = async (device_id: string): Promise<Category[]> => {
+export const getLiveStreamCategories = async (playlist_id: string): Promise<Category[]> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -90,9 +90,9 @@ export const getLiveStreamCategories = async (device_id: string): Promise<Catego
   }
 };
 
-export const getVodCategories = async (device_id: string): Promise<Category[]> => {
+export const getVodCategories = async (playlist_id: string): Promise<Category[]> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -130,11 +130,11 @@ export const getVodCategories = async (device_id: string): Promise<Category[]> =
 };
 
 export const getLiveStreams = async (
-  device_id: string,
+  playlist_id: string,
   category_id: string
 ): Promise<Stream[]> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -173,11 +173,11 @@ export const getLiveStreams = async (
 };
 
 export const getVODStreams = async (
-  device_id: string,
+  playlist_id: string,
   category_id: string
 ): Promise<Stream[]> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -216,12 +216,12 @@ export const getVODStreams = async (
 };
 
 export const getStreamURL = async (
-  device_id: string,
+  playlist_id: string,
   stream_id: number,
   stream_extension: string
 ): Promise<string> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -259,9 +259,9 @@ export const getStreamURL = async (
   }
 };
 
-export const getEPGData = async (device_id: string, channelId: string) => {
+export const getEPGData = async (playlist_id: string, channelId: string) => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -299,9 +299,9 @@ export const getEPGData = async (device_id: string, channelId: string) => {
   }
 };
 
-export const searchLiveData = async (device_id: string, name: string) => {
+export const searchLiveData = async (playlist_id: string, name: string) => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -337,9 +337,9 @@ export const searchLiveData = async (device_id: string, name: string) => {
   }
 };
 
-export const searchVODData = async (device_id: string, name: string) => {
+export const searchVODData = async (playlist_id: string, name: string) => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -375,9 +375,9 @@ export const searchVODData = async (device_id: string, name: string) => {
   }
 };
 
-export const getSeriesCategoriesService = async (device_id: string): Promise<Category[]> => {
+export const getSeriesCategoriesService = async (playlist_id: string): Promise<Category[]> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -414,11 +414,11 @@ export const getSeriesCategoriesService = async (device_id: string): Promise<Cat
 };
 
 export const getSeriesStreams = async (
-  device_id: string,
+  playlist_id: string,
   category_id: string
 ): Promise<Stream[]> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -456,11 +456,11 @@ export const getSeriesStreams = async (
 };
 
 export const getSeriesInfoService = async (
-  device_id: string,
+  playlist_id: string,
   series_id: string
 ): Promise<Stream[]> => {
   try {
-    const playlist = await PlaylistModel.findOne({ device_id });
+    const playlist = await PlaylistModel.findById(playlist_id);
 
     if (!playlist) {
       throw {
@@ -496,12 +496,12 @@ export const getSeriesInfoService = async (
   }
 };
 
-export const fetchPlaylists = async (device_id: string, user?: { email: string }) => {
+export const fetchPlaylists = async (playlist_id: string, user?: { email: string }) => {
   if (user) {
     const playlists = await PlaylistModel.find({ email: user.email });
     return playlists;
   } else {
-    const playlists = await PlaylistModel.find({ device_id });
+    const playlists = await PlaylistModel.find({ playlist_id });
     if (!playlists.length) {
       throw { status: 404, message: "Playlists not found" };
     }
