@@ -496,12 +496,12 @@ export const getSeriesInfoService = async (
   }
 };
 
-export const fetchPlaylists = async (device_id: string, user?: { email: string }) => {
+export const fetchPlaylists = async (playlist_id: string, user?: { email: string }) => {
   if (user) {
     const playlists = await PlaylistModel.find({ email: user.email });
     return playlists;
   } else {
-    const playlists = await PlaylistModel.find({ device_id });
+    const playlists = await PlaylistModel.find({ playlist_id });
     if (!playlists.length) {
       throw { status: 404, message: "Playlists not found" };
     }
