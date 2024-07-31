@@ -8,7 +8,7 @@ export const verifyByPlayerid = async (
   next: NextFunction
 ) => {
   try {
-    const playlist_id = req.headers["playlist-id"] as string;
+    const playlist_id = req.headers["playlistId"] as string;
 
     if (!playlist_id) {
       return res.status(StatusCodes.UNAUTHORIZED).json({
