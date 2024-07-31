@@ -5,6 +5,7 @@ import { chechJwt } from "./helpers";
 
 export const verifyUser = async (req: Request | any, res: Response, next: NextFunction) => {
   try {
+    console.log(req.headers, "USER::::");
     const device_id = req.headers["deviceId"] as string;
     console.log(device_id);
 
