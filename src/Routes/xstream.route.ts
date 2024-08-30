@@ -16,6 +16,7 @@ import {
   getSeriesInfo,
   getDevicePlaylists,
   updatePlaylistNickname,
+  searchSeries,
 } from "../controllers/xstreamcode.controller";
 import { createDevice } from "../controllers/device.controller";
 import { verifyToken, verifyUser } from "../middleware/authMiddleWare";
@@ -563,5 +564,42 @@ xstreamRoute.get(END_POINTS.USER_PLAYLIST, verifyUser, verifyToken, getDevicePla
  *         description: Server error
  */
 xstreamRoute.patch(END_POINTS.UPDATE_PLAYLIST, updatePlaylistNickname);
+
+/**
+ * @swagger
+ * /api/v1/search-series:
+ *   get:
+ *     summary: Get Series Streams by name search
+ *     tags: [Series]
+ *     parameters:
+ *       - in: header
+ *         name: deviceid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Device ID
+ *       - in: header
+ *         name: playlistid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Playlist ID
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: name
+ *     responses:
+ *       200:
+ *         description: series retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+xstreamRoute.get(END_POINTS.SEARCH_SERIES, verifyUser, verifyByPlayerid, searchSeries);
 
 export default xstreamRoute;
