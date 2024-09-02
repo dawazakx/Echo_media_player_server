@@ -9,6 +9,7 @@ const END_POINTS = {
   STREAM_URL: "/stream-url",
   SEARCH_LIVE_STREAM: "/search-livetv",
   SEARCH_VOD: "/search-vod",
+  SEARCH_SERIES: "/search-series",
   SIGNUP: "/signup",
   VERIFY_USER: "/verify",
   LOGIN: "/login",

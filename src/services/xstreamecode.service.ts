@@ -526,3 +526,41 @@ export const updatePlaylistNicknameService = async (playlistId: string, nickname
     throw { status: error.status || 500, message: error.message || "Internal Server Error" };
   }
 };
+
+export const searchSeriesData = async (playlist_id: string, name: string) => {
+  try {
+    const playlist = await PlaylistModel.findById(playlist_id);
+
+    if (!playlist) {
+      throw {
+        status: 404,
+        message: "No playlist found",
+      };
+    }
+
+    const { xtreamUserInfo, url } = playlist;
+
+    const userInfo = xtreamUserInfo as XtreamUserInfo;
+
+    if (!userInfo || !userInfo.username || !userInfo.password) {
+      throw {
+        status: 400,
+        message: "Invalid Xtream user info",
+      };
+    }
+
+    const { username, password } = userInfo;
+
+    const playerConfig: PlayerApiConfig = { baseUrl: url, auth: { username, password } };
+    const playerAPI = new PlayerAPI(playerConfig);
+
+    const series = await playerAPI.searchSeriesStreams(name);
+
+    return series;
+  } catch (error: any) {
+    throw {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    };
+  }
+};

@@ -189,4 +189,18 @@ export class PlayerAPI {
       );
     });
   }
+
+  /**
+   * Search for series streams by name
+   *
+   * @param {string} name
+   * @returns {Promise<Stream[]>}
+   */
+  searchSeriesStreams(name: string): Promise<Stream[]> {
+    return this.execute("get_series").then((streams) => {
+      return streams.filter((stream: Stream) =>
+        stream.name.toLowerCase().includes(name.toLowerCase())
+      );
+    });
+  }
 }

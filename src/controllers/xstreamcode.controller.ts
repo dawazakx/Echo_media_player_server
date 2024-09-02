@@ -14,6 +14,7 @@ import {
   getSeriesInfoService,
   fetchPlaylists,
   updatePlaylistNicknameService,
+  searchSeriesData,
 } from "../services/xstreamecode.service";
 import validationMiddleware from "../middleware/validation.middleware";
 import { connectX } from "../validations/playlist.validation";
@@ -205,6 +206,22 @@ export const updatePlaylistNickname = async (req: Request, res: Response) => {
     res
       .status(200)
       .json({ message: "Playlist nickname updated successfully", updatedPlaylist });
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export const searchSeries = async (req: Request, res: Response) => {
+  try {
+    const playlist_id = req.headers["playlistid"] as string;
+    const { name } = req.query;
+
+    if (!name) {
+      return res.status(400).json({ message: "name is required" });
+    }
+
+    const series = await searchSeriesData(playlist_id, name as string);
+    res.status(200).json({ series });
   } catch (error: any) {
     res.status(error.status || 500).json({ message: error.message || "Internal Server Error" });
   }
